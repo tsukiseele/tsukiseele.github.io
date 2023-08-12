@@ -5,7 +5,10 @@ export default {
     host: process.env.BASE_HOST || '0.0.0.0',
     port: process.env.BASE_PORT || 3000,
   },
-  ssr: !(process.env.MODE && process.env.MODE.toLocaleUpperCase() == 'SPA'),
+   router: {
+    mode: process.env.MODE && process.env.MODE.toLocaleUpperCase() == 'static' ? 'hash' : 'history'
+  },
+  ssr: !(process.env.MODE && process.env.MODE.toLocaleUpperCase() == 'static'),
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: config.title,
