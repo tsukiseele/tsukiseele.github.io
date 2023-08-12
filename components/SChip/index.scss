@@ -1,0 +1,30 @@
+@use 'sass:math';
+
+.chip {
+  i {
+    font-size: 1rem;
+    vertical-align: middle;
+    padding-right: 0.25rem;
+  }
+  $height: 1.75rem;
+  display: inline-block;
+  color: var(--color-text);
+  font-family: var(--font-monospace);
+  border: 1px solid transparent;// var(--color-border);
+  vertical-align: middle;
+  // border-radius: math.div($height, 2) !important;
+  font-size: 0.8rem;
+  line-height: $height;
+  padding: 0 0.5rem;
+  transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+  color: var(--color);
+  background-color: #dfdfdf;
+  .chip-text {
+    color: #283c5f;
+    font-size: .8rem;
+  }
+  &:hover {
+    border-color: var(--color);
+  }
+}
