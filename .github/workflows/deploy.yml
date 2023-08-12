@@ -1,10 +1,13 @@
 name: Deploy Nuxt site to Pages
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 permissions:
   contents: write
 jobs:
-  cd:
+  deploy:
     runs-on: ${{ matrix.os }}
 
     strategy:

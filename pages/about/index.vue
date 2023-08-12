@@ -20,14 +20,14 @@ import { mapState } from 'vuex'
 // import { useMeta } from 'nuxt-edge'
 import config from '@/config'
 export default {
-  setup() {
-    useMeta({
-      meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' }],
-      bodyAttrs: {
-        class: 'test',
-      },
-    })
-  },
+  // setup() {
+  //   useMeta({
+  //     meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' }],
+  //     bodyAttrs: {
+  //       class: 'test',
+  //     },
+  //   })
+  // },
   data: () => ({
       name: 'tsukiseele',
     header: {
