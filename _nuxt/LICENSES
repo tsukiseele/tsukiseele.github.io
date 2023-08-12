@@ -1,4 +1,23 @@
 /*!
+  * vue-router v3.5.3
+  * (c) 2021 Evan You
+  * @license MIT
+  */
+
+/*!
+ * Vue.js v2.6.14
+ * (c) 2014-2021 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
+
+
+/*!
   Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
@@ -12,8 +31,8 @@
  */
 
 /*!
- * Vue-Lazyload.js v1.3.5
- * (c) 2023 Awe <hilongjw@gmail.com>
+ * Vue-Lazyload.js v1.3.3
+ * (c) 2019 Awe <hilongjw@gmail.com>
  * Released under the MIT License.
  */
 
@@ -33,7 +52,7 @@
  */
 
 /*!
- * vue-i18n v8.28.2 
+ * vue-i18n v8.27.0 
  * (c) 2022 kazuya kawaguchi
  * Released under the MIT License.
  */
@@ -59,7 +78,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-/*! @license DOMPurify 2.3.12 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.12/LICENSE */
+/*! @license DOMPurify 2.3.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.6/LICENSE */
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
@@ -74,16 +93,3 @@ and limitations under the License.
   * (c) 2015-present Evan You
   * @license MIT
   */
-
-
-/*!
- * Vue.js v2.7.14
- * (c) 2014-2022 Evan You
- * Released under the MIT License.
- */
-
-/*!
- * vuex v3.6.2
- * (c) 2021 Evan You
- * @license MIT
- */
