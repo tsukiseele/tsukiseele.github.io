@@ -70,10 +70,14 @@ jobs:
             ${{ runner.os }}-nuxt-build-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+
       - name: Static HTML export with Nuxt
-        run: ${{ steps.detect-package-manager.outputs.manager }} run build-spa && ${{ steps.detect-package-manager.outputs.manager }} run start-spa
-
-
+        run: ${{ steps.detect-package-manager.outputs.manager }} run build-spa
+      - name: Check export file
+        run: ls ./
+      - name: Install dependencies
+        run: ${{ steps.detect-package-manager.outputs.manager }} run start-spa
+      
   # Deployment job
   deploy:
     environment:
