@@ -68,7 +68,7 @@ export default {
       content: '这里我的个人网站さとうしお、分享来自二次元的奇迹，请多关照',
     },
   ],
-  backgroundTheme: 'madras',
+  backgroundTheme: 'cicada-stripes',
   sideTheme: 'tartan'
   // backgroundThemes: [
   //   'cicada-stripes',
