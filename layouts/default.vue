@@ -28,10 +28,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import _ from 'lodash'
 export default {
   data: () => ({
     musics: [],
     windowWidth: 0,
+    onScroll: null,
+    onResize: null,
   }),
   computed: {
     ...mapState(['navigation']),
@@ -80,31 +83,25 @@ export default {
     getRandomNumber(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min
     },
-    onScroll() {
-      const newPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      const scroll = this.$store.getters.scroll
-      this.$store.commit('scroll', {
-        pos: newPos,
-        change: scroll && scroll.pos ? newPos - scroll.pos : 0,
-      })
-    },
-    onResize() {
-      if (document) {
+    registerEventListener() {
+      this.onScroll = _.throttle(() => {
+        const newPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        const scroll = this.$store.getters.scroll
+        this.$store.commit('scroll', {
+          pos: newPos,
+          change: scroll && scroll.pos ? newPos - scroll.pos : 0,
+        })
+      }, 200)
+      this.onResize = _.throttle(() => {
         this.windowWidth = document.documentElement.clientWidth
-      }
-    },
-    init() {
-      this.$nextTick(() => {
-        this.onScroll()
-        this.onResize()
-      })
+      }, 200)
+      window.addEventListener('scroll', this.onScroll)
+      window.addEventListener('resize', this.onResize)
+      this.$nextTick(() => this.onScroll() || this.onResize())
     },
   },
   mounted() {
-    this.init()
-    window.addEventListener('scroll', this.onScroll)
-    window.addEventListener('resize', this.onResize)
-
+    process.client && this.registerEventListener()
     this.getMusicList()
   },
   destroyed() {
@@ -126,42 +123,49 @@ export default {
     background-repeat: repeat;
     background-attachment: fixed;
     overflow: hidden;
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          
-          background-color: white;
-          opacity: .1;
-        }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+
+      background-color: white;
+      opacity: .1;
+    }
+
     .decorate {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+
       .decorate-item {
         position: absolute;
         top: 0;
         // width: 2px;
         height: 100%;
+
         &:first-of-type {
           left: 10%;
           background-image: repeating-linear-gradient(0deg, #c7b3d6, #c7b3d6 2px, white 4px, white 8px);
         }
+
         &:last-of-type {
           right: 10%;
           background-image: repeating-linear-gradient(0deg, #c7b3d6, #c7b3d6 2px, white 4px, white 8px);
         }
+
         height: 100%;
         overflow: hidden;
       }
     }
   }
 }
+
 @media screen and (max-width: $mobile) {
   #app {
     overflow-x: hidden;
@@ -191,6 +195,7 @@ export default {
   #footer {
     display: none;
   }
+
   #main {
     margin-top: 0;
   }

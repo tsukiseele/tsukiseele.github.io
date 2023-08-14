@@ -25,7 +25,12 @@ export default {
       return this.archive.currentItem
     },
     navHeight() {
-      return document.querySelector('#nav').clientHeight;
+      
+      if (process.client) {
+        const nav = document.querySelector('#nav')
+        if (nav) return nav.clientHeight;
+      }
+      return 0;
     }
   },
   methods: {

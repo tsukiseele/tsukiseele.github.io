@@ -2,7 +2,7 @@
   "name": "hsl",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/tsukiseele/HSL",  
+  "homepage": "https://github.com/tsukiseele/HSL",
   "engines": {
     "node": ">16.14.0 <17"
   },
@@ -30,6 +30,7 @@
     "highlight.js": "~11.2.0",
     "katex": "~0.15.1",
     "live2d-vue": "~0.2.5",
+    "lodash": "^4.17.21",
     "marked": "~3.0.2",
     "nuxt": "~2.15.8",
     "postcss-preset-env": "~7.3.3",

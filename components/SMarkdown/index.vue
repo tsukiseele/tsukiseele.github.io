@@ -56,16 +56,18 @@ export default {
       this.$emit('activeChange', { index: i - 1, item: title })
     },
     onScroll() {
-      // this._timer && clearTimeout(this._timer)
+      if (this._timer) return
 
-      // this._timer = setTimeout(() => {
-      //   this.getNavPosition()
-      //   this.cancelPreview()
-      // }, 200)
-      requestAnimationFrame(() => {
+      this._timer = setTimeout(() => {
         this.getNavPosition()
         this.cancelPreview()
-      })
+        clearTimeout(this._timer)
+        this._timer = null
+      }, 200)
+      // requestAnimationFrame(() => {
+      //   this.getNavPosition()
+      //   this.cancelPreview()
+      // })
     },
     cancelPreview() {
       if (this.previewEl) {
