@@ -6,7 +6,7 @@ img#back-top(v-if='!isMobile', ref='back', :src='img', :class='{ hide: scroll &&
 import { mapState, mapGetters } from 'vuex'
 export default {
   data: () => ({
-    img: 'https://cdn.jsdelivr.net/gh/tsukiseele/awsl.re/static/assets/back-top.png',
+    img: `${this.$src}/assets/back-top.png`,
   }),
   computed: {
     ...mapState(['scroll']),

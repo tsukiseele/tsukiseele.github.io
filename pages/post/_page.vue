@@ -45,7 +45,7 @@ export default {
     },
     res() {
       return {
-        icon: `${this.$config.static}/icon/icon.png`,
+        icon: `${this.$src}/icon/icon.png`,
       }
     },
   },

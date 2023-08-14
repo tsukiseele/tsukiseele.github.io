@@ -2,11 +2,11 @@ export default {
   // 标题
   title: '遥远的理想乡 - TsukiSeele\'s Blog',
   // 音乐接口
-  musicAPI: 'https://api.hlo.li/music/playlist/detail?id=7490559834',
+  musicAPI: 'https://api.hlo.li/playlist/detail?id=7490559834',
   // 一言接口（可选，填写后会显示在subtitle)
-  hitokitoAPI: 'https://api.hlo.li/music/playlist/detail?id=7490559834',
+  hitokitoAPI: 'https://v1.hitokoto.cn/?c=a&c=b',
   // 静态资源位置（可选）
-  static: 'https://cdn.jsdelivr.net/gh/tsukiseele/awsl.re/static',
+  resource: 'https://fastly.jsdelivr.net/gh/tsukiseele/resource/',
   // base64编码的Github token
   token: 'Z2hwX2UzbXo0eDFzMW1JeTlYYjJBYzZoc3lvMVA5eFpLaTN0ZnoxbA==',
   // Github OAuth口令，參見https://vssue.js.org/guide/github.html#config-and-start-your-vssue
@@ -31,7 +31,6 @@ export default {
   },
   // 导航
   nav: {
-    // title: 'さとうしお',
     title: '遥远的理想乡',
     subtitle: "TsukiSeele's Blog",
     owner: 'TsukiSeele',
