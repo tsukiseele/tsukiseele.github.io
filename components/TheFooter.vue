@@ -38,6 +38,7 @@ export default {
   font-family: InfoDisplay;
   color: white;
   overflow: hidden;
+  font-family: var(--font-display);
   &::after {
     content: '';
     position: absolute;

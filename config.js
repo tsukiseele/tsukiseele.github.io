@@ -4,7 +4,7 @@ export default {
   // 音乐接口
   musicAPI: 'https://api.hlo.li/playlist/detail?id=7490559834',
   // 一言接口（可选，填写后会显示在subtitle)
-  hitokotoAPI: 'https://v1.hitokoto.cn/?c=a&c=b',
+  hitokotoAPI: 'https://v1.hitokoto.cn/?c=d',
   // 静态资源位置（可选）
   resource: 'https://fastly.jsdelivr.net/gh/tsukiseele/resource@main/',
   // base64编码的Github token
@@ -18,7 +18,7 @@ export default {
   // 博客配置，考慮到GFW，建議不要直接在Issue插入圖片，請使用外鏈以 提升速度和穩定性
   blog: {
     // Github 用户名
-    username: 'tsukiseele',
+    owner: 'tsukiseele',
     // Github 存储文章的仓库名
     repository: 'archives',
     // 每頁顯示的文章數

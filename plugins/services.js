@@ -1,16 +1,16 @@
 import config from '@/config.js'
 
 const token = config.token
-const username = config.blog.username
+const owner = config.blog.owner
 const repository = config.blog.repository
 
 export default ({ app, $axios }, inject) => {
   $axios.defaults.headers.common['Authorization'] = `token ${Buffer.from(token, 'base64').toString('ascii')}`
-  $axios.defaults.baseURL = `https://api.github.com/repos/${username}/${repository}`;
+  $axios.defaults.baseURL = `https://api.github.com/repos/${owner}/${repository}`;
   
   inject('service', {
     getArchives({ page, count }) {
-      return $axios.$get(`https://api.github.com/search/issues?q=repo:${username}/${repository}+type:issue+state:open&page=${page}&per_page=${count}`)
+      return $axios.$get(`https://api.github.com/search/issues?q=repo:${owner}/${repository}+type:issue+state:open&page=${page}&per_page=${count}`)
       // return $axios.$get(`/issues`, {
       //   params: {
       //     page: page,
