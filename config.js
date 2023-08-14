@@ -1,6 +1,6 @@
 export default {
   // 标题
-  title: '遥远的理想乡 - TsukiSeele\'s Blog',
+  title: '遠い理想郷 - TsukiSeele\'s Blog',
   // 音乐接口
   musicAPI: 'https://api.hlo.li/playlist/detail?id=7490559834',
   // 一言接口（可选，填写后会显示在subtitle)
@@ -31,7 +31,7 @@ export default {
   },
   // 导航
   nav: {
-    title: '遥远的理想乡',
+    title: '遠い理想郷',
     subtitle: "TsukiSeele's Blog",
     owner: 'TsukiSeele',
     introduction: 'しおちゃんがいる場所が、私のハッピーシュガーライフ',
@@ -64,7 +64,7 @@ export default {
     {
       hid: 'description',
       name: 'description',
-      content: 'TsukiSeele\'s Blog, 二次元与技术宅的个人博客',
+      content: '遠い理想郷, TsukiSeele的二次元与技术宅的个人博客',
     },
   ],
   backgroundTheme: 'cicada-stripes',

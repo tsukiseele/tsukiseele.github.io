@@ -62,10 +62,8 @@ export default {
     try {
       this.hitokoto.content = this.navigation.introduction
       this.hitokoto.from = this.navigation.introductionFrom
-      console.log(this.$config);
       if (this.$config.hitokotoAPI) {
         const response = await (await fetch(this.$config.hitokotoAPI)).json()
-        console.log(response);
         if (response && response.hitokoto && response.from) {
           this.hitokoto.content = response.hitokoto
           this.hitokoto.from = 'ᅳᅳ' + response.from
