@@ -2,15 +2,15 @@
 #content
   .title(data-aos="fade-down" data-aos-delay="300") {{ navigation.title }}
   //- .title
-    //- span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
-    //-   .letter(:class="char")
-    //-  {{ navigation.title }}
+  //- span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
+  //-   .letter(:class="char")
+  //-  {{ navigation.title }}
   .subtitle(data-aos="fade-down" data-aos-delay="300") {{ navigation.subtitle }}
-  
+
   div.introduction(data-aos="fade-right" data-aos-delay="600")
     .blockquote
       SIcon(name='quote').quote-left
-      .quote-content(v-html="navigation.introduction" :data-from="navigation.introductionFrom")
+      .quote-content(v-text="hitokoto.content" :data-from="hitokoto.from")
       SIcon(name='quote').quote-right
   nav.nav
     ul.nav-menu
@@ -47,13 +47,34 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    hitokoto: {
+      content: '',
+      from: '',
+    }
+  }),
   computed: {
     ...mapState(['navigation']),
     ...mapGetters(['isMobile']),
   },
   methods: {},
-  mounted() {
+  async mounted() {
+    try {
+      this.hitokoto.content = this.navigation.introduction
+      this.hitokoto.from = this.navigation.introductionFrom
+      console.log(this.$config);
+      if (this.$config.hitokotoAPI) {
+        const response = await (await fetch(this.$config.hitokotoAPI)).json()
+        console.log(response);
+        if (response && response.hitokoto && response.from) {
+          this.hitokoto.content = response.hitokoto
+          this.hitokoto.from = 'ᅳᅳ' + response.from
+        }
+      }
+    } catch (error) {
+      console.log(`Hitikito failed to load. throw: ${error}`)
+    }
+
     // document.querySelectorAll('.burst-12').forEach((el) => {
     //   el.style.left = `${Math.random() * 80 + 10}%`
     //   el.style.top = `${Math.random() * 80 + 10}%`

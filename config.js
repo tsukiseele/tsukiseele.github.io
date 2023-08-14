@@ -4,9 +4,9 @@ export default {
   // 音乐接口
   musicAPI: 'https://api.hlo.li/playlist/detail?id=7490559834',
   // 一言接口（可选，填写后会显示在subtitle)
-  hitokitoAPI: 'https://v1.hitokoto.cn/?c=a&c=b',
+  hitokotoAPI: 'https://v1.hitokoto.cn/?c=a&c=b',
   // 静态资源位置（可选）
-  resource: 'https://fastly.jsdelivr.net/gh/tsukiseele/resource/',
+  resource: 'https://fastly.jsdelivr.net/gh/tsukiseele/resource@main/',
   // base64编码的Github token
   token: 'Z2hwX2UzbXo0eDFzMW1JeTlYYjJBYzZoc3lvMVA5eFpLaTN0ZnoxbA==',
   // Github OAuth口令，參見https://vssue.js.org/guide/github.html#config-and-start-your-vssue
@@ -35,7 +35,7 @@ export default {
     subtitle: "TsukiSeele's Blog",
     owner: 'TsukiSeele',
     introduction: 'しおちゃんがいる場所が、私のハッピーシュガーライフ',
-    introductionFrom: 'ーー松坂さとう',
+    introductionFrom: 'ᅳᅳ松坂さとう',
     decorateText: 'SWEET',
     drawer: false,
     drawerBannerBackground: 'https://cdn.jsdelivr.net/gh/tsukiseele/ImageHosting/upload/826f66f94e3ebf1f62cff7c9109bb118.jpeg',
@@ -64,7 +64,7 @@ export default {
     {
       hid: 'description',
       name: 'description',
-      content: '这里我的个人网站さとうしお、分享来自二次元的奇迹，请多关照',
+      content: 'TsukiSeele\'s Blog, 二次元与技术宅的个人博客',
     },
   ],
   backgroundTheme: 'cicada-stripes',
