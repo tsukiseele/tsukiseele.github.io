@@ -25,7 +25,6 @@ export default {
       return this.archive.currentItem
     },
     navHeight() {
-      
       if (process.client) {
         const nav = document.querySelector('#nav')
         if (nav) return nav.clientHeight;

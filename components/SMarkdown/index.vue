@@ -57,17 +57,11 @@ export default {
     },
     onScroll() {
       if (this._timer) return
-
       this._timer = setTimeout(() => {
         this.getNavPosition()
         this.cancelPreview()
-        clearTimeout(this._timer)
         this._timer = null
       }, 200)
-      // requestAnimationFrame(() => {
-      //   this.getNavPosition()
-      //   this.cancelPreview()
-      // })
     },
     cancelPreview() {
       if (this.previewEl) {
