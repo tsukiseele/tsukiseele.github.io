@@ -75,7 +75,14 @@
       font-size: 2rem;
       color: var(--color-text-primary);
     }
+    .decorate-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
     .decorate-burst-12 {
+      position: absolute;
       $size: 10rem;
       $radius: 1rem;
       width: 100%;

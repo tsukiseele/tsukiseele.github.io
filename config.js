@@ -33,6 +33,7 @@ export default {
   nav: {
     title: '遠い理想郷',
     subtitle: "TsukiSeele's Blog",
+    avatar: 'https://avatars.githubusercontent.com/u/28500231?v=4',
     owner: 'TsukiSeele',
     introduction: 'しおちゃんがいる場所が、私のハッピーシュガーライフ',
     introductionFrom: 'ᅳᅳ松坂さとう',
