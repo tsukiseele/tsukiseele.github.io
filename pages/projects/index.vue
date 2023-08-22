@@ -22,13 +22,11 @@ import { mapState } from 'pinia'
 import { useMainStore } from '~/store/index'
 
 export default {
-  // setup() {
-  //   const store = useMainStore()
-  //   return { store }
-  // },
-  data: () => ({
-    projects: []
-  }),
+  setup() {
+    const store = useMainStore()
+    return { store }
+  },
+  data: () => ({}),
   computed: {
     ...mapState(useMainStore, ['projects']),
   },
@@ -38,12 +36,7 @@ export default {
     },
   },
   async mounted() {
-    this.projects = await this.$store.projects()
-
   },
-  // async fetch({ store, params }) {
-  //   await store.dispatch('projects')
-  // },
 }
 </script>
 <style lang="scss" scoped>

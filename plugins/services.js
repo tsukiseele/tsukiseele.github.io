@@ -1,3 +1,4 @@
+import { Base64 } from 'js-base64';
 import config from '@/config.js'
 
 const token = config.token
@@ -7,7 +8,8 @@ const repository = config.blog.repository
 export default defineNuxtPlugin(nuxtApp => {
   // useFetch.defaults.headers.common['Authorization'] = `token ${Buffer.from(token, 'base64').toString('ascii')}`
   // useFetch.defaults.baseURL = `https://api.github.com/repos/${owner}/${repository}`;
-
+  const TOKEN = `token ${Base64.decode(token)}`
+  const BASE_URL = `https://api.github.com/repos/${owner}/${repository}`
   return {
     provide: {
       service: {
@@ -30,12 +32,20 @@ export default defineNuxtPlugin(nuxtApp => {
         getMilestones() {
           return $fetch(`/milestones`)
         },
-        getPage(type) {
+        async getPage(type) {
           const upperType = type.replace(/^\S/, s => s.toUpperCase())
-          return $fetch(`/issues?state=closed&labels=${upperType}`)
+          const {data} = await useFetch(`/issues?state=closed&labels=${upperType}`, {
+            baseURL: BASE_URL,
+            headers: {
+              'Authorization': TOKEN
+            }
+          })
+          console.log('RESP: ', data.value);
+          return data.value
         },
         getInspiration({ page, count }) {
-          return $fetch(`/issues?state=closed&labels=inspiration&page=${page}&per_page=${count}`)
+          return useFetch(`/issues?state=closed&labels=inspiration&page=${page}&per_page=${count}`,
+            { baseURL: BASE_URL })
         },
       }
     }

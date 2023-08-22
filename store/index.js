@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { formatPost, formatJson, formatGallery, formatTimeline, formatPage } from '@/plugins/utils/format.js'
 import config from '@/config.js'
-import { useContext } from 'nuxt-composition-api'
 
 const actions = {
   /**
@@ -100,16 +99,13 @@ const actions = {
   /**
    * 获取项目
    */
-  async projects() {
-    const context = useContext()
-    console.log(context.$service);
+  async getProjects(service) {
     if (this.projects.length) return
-    const projects = (await Promise.all([context.$service.getPage('projects'), this.$service.getPage('websites')])).map((item) => item[0])
-    this.projects = projects.map((item) => {
+    const projects = (await Promise.all([service.getPage('projects'), service.getPage('websites')])).map(item => item[0])
+     this.projects = projects.map((item) => {
       const name = item.title.toLowerCase()
       return { name, items: formatPage(item, item.title.toLowerCase()) }
     })
-
   },
   /**
    *
