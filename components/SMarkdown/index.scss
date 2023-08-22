@@ -73,7 +73,7 @@
     transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 }
-@media screen and(max-width: $mobile) {
+@media screen and (max-width: $mobile) {
   .markdown-content {
     font-size: 1.125rem;
     padding: 0.5rem;

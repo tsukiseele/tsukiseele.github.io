@@ -3,14 +3,13 @@ img#back-top(v-if='!isMobile', ref='back', :src='img', :class='{ hide: scroll &&
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'pinia'
 export default {
   data: () => ({
     img: `${this.$src}/assets/back-top.png`,
   }),
   computed: {
-    ...mapState(['scroll']),
-    ...mapGetters(['isMobile']),
+    ...mapState(['scroll', 'isMobile']),
   },
   methods: {
     handleBackTop() {

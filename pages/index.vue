@@ -28,8 +28,8 @@
     .decorate-item
     .decorate-item
   .decorate-side
-    .decorate-item(:data-theme-background="$config.sideTheme")
-    .decorate-item(:data-theme-background="$config.sideTheme")
+    .decorate-item(:data-theme-background="$cfg.sideTheme")
+    .decorate-item(:data-theme-background="$cfg.sideTheme")
   .decorate
     .decorate-item(v-for='char in navigation.decorateText' :data-content="char") {{ char }}
   //- .decorate-burst-12
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapGetters } from 'vuex'
+import { mapState } from 'pinia'
+import { useMainStore } from '~/store/index'
 
 export default {
   data: () => ({
@@ -54,16 +54,17 @@ export default {
     }
   }),
   computed: {
-    ...mapState(['navigation']),
-    ...mapGetters(['isMobile']),
+    ...mapState(useMainStore, ['navigation', 'isMobile']),
   },
   methods: {},
   async mounted() {
+    console.log(this.$service);
+    console.log(this.$cfg);
     try {
       this.hitokoto.content = this.navigation.introduction
       this.hitokoto.from = this.navigation.introductionFrom
-      if (this.$config.hitokotoAPI) {
-        const response = await (await fetch(this.$config.hitokotoAPI)).json()
+      if (this.$cfg.hitokotoAPI) {
+        const response = await (await fetch(this.$cfg.hitokotoAPI)).json()
         if (response && response.hitokoto && response.from) {
           this.hitokoto.content = response.hitokoto
           this.hitokoto.from = 'ᅳᅳ' + response.from

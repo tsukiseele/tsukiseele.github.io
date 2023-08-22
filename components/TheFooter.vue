@@ -5,7 +5,7 @@
       div
         img.assess-count(src="https://count.getloli.com/get/@nlo.li?theme=rule34" alt="counter")
       p © {{ new Date().getFullYear() }} by 
-        a.info--theme(href="/") {{ $config.nav.title }} 
+        a.info--theme(href="/") {{ $cfg.nav.title }} 
         | All Rights Reserved.
       p Designed by 
         a.info--developer(href="https://github.com/tsukiseele" target="_blank") TsukiSeele

@@ -1,90 +1,9 @@
-import { formatPost, formatJson, formatNavMenu, formatGallery, formatTimeline, formatPage } from '@/plugins/utils/format.js'
+import { defineStore } from 'pinia'
+import { formatPost, formatJson, formatGallery, formatTimeline, formatPage } from '@/plugins/utils/format.js'
 import config from '@/config.js'
+import { useContext } from 'nuxt-composition-api'
 
-export const state = () => ({
-  archive: {
-    page: 0,
-    totalCount: 0,
-    items: [],
-    currentItem: {},
-  },
-  clientWidth: 0,
-  scroll: { pos: 0, change: 0 },
-  images: [],
-  inspiration: [],
-  about: {},
-  friends: [],
-  projects: [],
-  labels: [],
-  categorys: null,
-  timeline: [],
-  experience: null,
-  navigation: config.nav,
-})
-
-export const getters = {
-  breakpoints(state, size) {
-    const breakpoints = {
-      tablet: 760,
-      mobile: 480,
-    }
-    return breakpoints[size] && breakpoints[size] < state.clientWidth
-  },
-  scroll(state) {
-    return state.scroll
-  },
-  clientWidth(state) {
-    return state.clientWidth
-  },
-  isMobile(state) {
-    return state.clientWidth < 768
-  },
-  archives(state) {
-    return state.archives
-  },
-}
-
-export const mutations = {
-  archive(state, args) {
-    args instanceof Array ? (state.archive[args[0]] = args[1]) : (state.archive = args)
-  },
-  //
-  scroll(state, scroll) {
-    state.scroll = scroll
-  },
-  clientWidth(state, clientWidth) {
-    state.clientWidth = clientWidth
-  },
-  labels(state, labels) {
-    state.labels = labels
-  },
-  categorys(state, categorys) {
-    state.categorys = categorys
-  },
-  images(state, images) {
-    state.images = images
-  },
-  inspiration(state, inspiration) {
-    state.inspiration = inspiration
-  },
-  about(state, about) {
-    state.about = about
-  },
-  friends(state, friends) {
-    state.friends = friends
-  },
-  timeline(state, timeline) {
-    state.timeline = timeline
-  },
-  projects(state, projects) {
-    state.projects = projects
-  },
-  experience(state, experience) {
-    state.experience = experience
-  },
-}
-
-export const actions = {
+const actions = {
   /**
    * 获取与
    * @param {Context} context 上下文
@@ -181,16 +100,16 @@ export const actions = {
   /**
    * 获取项目
    */
-  async projects({ commit, state }) {
-    if (state.projects.length) return
-    const projects = (await Promise.all([this.$service.getPage('projects'), this.$service.getPage('websites')])).map((item) => item[0])
-    commit(
-      'projects',
-      projects.map((item) => {
-        const name = item.title.toLowerCase()
-        return { name, items: formatPage(item, item.title.toLowerCase()) }
-      })
-    )
+  async projects() {
+    const context = useContext()
+    console.log(context.$service);
+    if (this.projects.length) return
+    const projects = (await Promise.all([context.$service.getPage('projects'), this.$service.getPage('websites')])).map((item) => item[0])
+    this.projects = projects.map((item) => {
+      const name = item.title.toLowerCase()
+      return { name, items: formatPage(item, item.title.toLowerCase()) }
+    })
+
   },
   /**
    *
@@ -205,3 +124,88 @@ export const actions = {
     }
   },
 }
+
+export const useMainStore = defineStore('main', {
+  state: () => ({
+    archive: {
+      page: 0,
+      totalCount: 0,
+      items: [],
+      currentItem: {},
+    },
+    clientWidth: 0,
+    scroll: { pos: 0, change: 0 },
+    images: [],
+    inspiration: [],
+    about: {},
+    friends: [],
+    projects: [],
+    labels: [],
+    categorys: null,
+    timeline: [],
+    experience: null,
+    navigation: config.nav,
+  }),
+  getters: {
+    breakpoints(state, size) {
+      const breakpoints = {
+        tablet: 760,
+        mobile: 480,
+      }
+      return breakpoints[size] && breakpoints[size] < state.clientWidth
+    },
+    scroll(state) {
+      return state.scroll
+    },
+    clientWidth(state) {
+      return state.clientWidth
+    },
+    isMobile(state) {
+      return state.clientWidth < 768
+    },
+    // archive(state) {
+    //   return state.archive
+    // },
+  }
+  ,
+  mutations: {
+    archive(state, args) {
+      args instanceof Array ? (state.archive[args[0]] = args[1]) : (state.archive = args)
+    },
+    //
+    scroll(state, scroll) {
+      state.scroll = scroll
+    },
+    clientWidth(state, clientWidth) {
+      state.clientWidth = clientWidth
+    },
+    labels(state, labels) {
+      state.labels = labels
+    },
+    categorys(state, categorys) {
+      state.categorys = categorys
+    },
+    images(state, images) {
+      state.images = images
+    },
+    inspiration(state, inspiration) {
+      state.inspiration = inspiration
+    },
+    about(state, about) {
+      state.about = about
+    },
+    friends(state, friends) {
+      state.friends = friends
+    },
+    timeline(state, timeline) {
+      state.timeline = timeline
+    },
+    projects(state, projects) {
+      state.projects = projects
+    },
+    experience(state, experience) {
+      state.experience = experience
+    },
+  },
+  actions: actions
+})

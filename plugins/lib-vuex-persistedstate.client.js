@@ -1,16 +1,16 @@
 /*
-import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'pinia-persistedstate'
 
 export default ({store}) => {
   createPersistedState(store)
 }*/
 
-import Vuex from "vuex";
-import persistedState from "vuex-persistedstate";
-export default new Vuex.Store({
-  // ...
-  plugins: [persistedState()]
-});
+// import Vuex from "pinia";
+// // import persistedState from "pinia-persistedstate";
+// export default new Vuex.Store({
+//   
+//   // plugins: [persistedState()]
+// });
 /*
 // 本地状态缓存，只能在客户端执行，用于保存页面状态
 export default function (ctx) {

@@ -1,28 +1,19 @@
 {
-  "name": "hsl",
-  "version": "1.0.0",
+  "name": "nuxt-app",
   "private": true,
-  "homepage": "https://github.com/tsukiseele/HSL",
-  "engines": {
-    "node": ">16.14.0 <17"
-  },
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev nuxt dev",
-    "dev-static": "cross-env NODE_ENV=dev MODE=static nuxt dev",
-    "build": "cross-env NODE_ENV=prod nuxt build",
-    "build-node18+": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=prod nuxt build",
-    "build-static": "cross-env NODE_ENV=prod MODE=static nuxt build",
-    "build-static-node18+": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=prod MODE=static nuxt build",
-    "start": "cross-env NODE_ENV=prod nuxt start",
-    "start-static": "cross-env NODE_ENV=prod MODE=static nuxt start",
-    "preview": "cross-env NODE_ENV=prod nuxt preview",
-    "analyze": "nuxt build --analyze",
-    "generate": "nuxt generate"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@mdi/font": "~6.5.95",
     "@moefe/vue-aplayer": "~2.0.0-beta.5",
     "@nuxtjs/axios": "~5.13.0",
+    "@nuxtjs/composition-api": "^0.33.1",
+    "@pinia/nuxt": "^0.4.11",
     "@vssue/api-github-v3": "~1.4.7",
     "aos": "~2.3.4",
     "core-js": "~3.17.0",
@@ -32,21 +23,24 @@
     "live2d-vue": "~0.2.5",
     "lodash": "^4.17.21",
     "marked": "~3.0.2",
-    "nuxt": "~2.15.8",
+    "nuxt-composition-api": "^0.11.0",
+    "pinia": "^2.1.6",
     "postcss-preset-env": "~7.3.3",
     "ress": "~4.0.0",
     "timeago.js": "~4.0.2",
     "vssue": "~1.4.8",
-    "vue-lazyload": "~1.3.3",
-    "vuex-persistedstate": "~4.0.0-beta.3"
+    "vue-lazyload": "~1.3.3"
   },
   "devDependencies": {
+    "@nuxt/devtools": "latest",
     "@nuxtjs/style-resources": "~1.2.1",
+    "@types/node": "^18.17.3",
     "all-contributors-cli": "~6.20.0",
     "cross-env": "~7.0.3",
+    "nuxt": "^3.6.5",
     "pug": "~3.0.0",
     "pug-plain-loader": "~1.1.0",
-    "sass": "~1.40.0",
+    "sass": "^1.66.1",
     "sass-loader": "~10.1.1"
   }
 }

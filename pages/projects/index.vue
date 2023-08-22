@@ -18,21 +18,32 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
+import { useMainStore } from '~/store/index'
+
 export default {
-  data: () => ({}),
+  // setup() {
+  //   const store = useMainStore()
+  //   return { store }
+  // },
+  data: () => ({
+    projects: []
+  }),
   computed: {
-    ...mapState(['projects']),
+    ...mapState(useMainStore, ['projects']),
   },
   methods: {
     onItemClick(item) {
       item && item.link && window.open(item.link, '_blank')
     },
   },
+  async mounted() {
+    this.projects = await this.$store.projects()
 
-  async fetch({ store, params }) {
-    await store.dispatch('projects')
   },
+  // async fetch({ store, params }) {
+  //   await store.dispatch('projects')
+  // },
 }
 </script>
 <style lang="scss" scoped>

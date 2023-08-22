@@ -1,6 +1,6 @@
 <template lang="pug">
 #hsl
-  #background(:data-theme-background="$config.backgroundTheme")
+  #background(:data-theme-background="$cfg.backgroundTheme")
     .decorate
       .decorate-item
       .decorate-item
@@ -17,7 +17,7 @@
       :isHide='isHideNav',
     )
     main#main
-      nuxt
+      slot
     //- 页脚
     TheFooter#footer
     //- 播放器
@@ -27,23 +27,27 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 import _ from 'lodash'
+import { mapState, mapStores } from 'pinia'
+import { useMainStore } from '../store/index'
+import SiteConfig from '@/config'
+
 export default {
   data: () => ({
     musics: [],
     windowWidth: 0,
     onScroll: null,
     onResize: null,
+    $cfg: SiteConfig
   }),
   computed: {
-    ...mapState(['navigation']),
-    ...mapGetters(['isMobile', 'scroll']),
+    ...mapState(useMainStore, ['navigation', 'isMobile', 'scroll']),
     isFull() {
       return this.$route.path == '/'
     },
     isHideNav() {
-      return this.isFull && (process.server || this.scroll.pos <= document.documentElement.clientHeight)
+      return true
+      // return this.isFull && (process.server || this.scroll.pos <= document.documentElement.clientHeight)
     },
     isTransparentNav() {
       return false // this.scroll.pos < 64
@@ -51,7 +55,9 @@ export default {
   },
   watch: {
     windowWidth(newVal) {
-      this.$store.commit('clientWidth', newVal)
+      useMainStore().$patch({
+        clientWidth: newVal
+      })
     },
     scroll(nv, ov) {
       const root = document.querySelector(':root')
@@ -65,7 +71,7 @@ export default {
      */
     async getMusicList() {
       try {
-        const result = await (await fetch(this.$config.musicAPI, { method: 'GET', mode: 'cors' })).json()
+        const result = await (await fetch(SiteConfig.musicAPI, { method: 'GET', mode: 'cors' })).json()
         if (result.code == 200) {
           this.musics = result.playlist.tracks.map((item) => ({
             id: item.id,
@@ -86,10 +92,13 @@ export default {
     registerEventListener() {
       this.onScroll = _.throttle(() => {
         const newPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-        const scroll = this.$store.getters.scroll
-        this.$store.commit('scroll', {
-          pos: newPos,
-          change: scroll && scroll.pos ? newPos - scroll.pos : 0,
+        const scroll = this.scroll || {}
+        const mainStore = useMainStore()
+        mainStore.$patch({
+          scroll: {
+            pos: newPos,
+            change: scroll && scroll.pos ? newPos - scroll.pos : 0,
+          }
         })
       }, 200)
       this.onResize = _.throttle(() => {
@@ -112,6 +121,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$mobile: 800px;
+
 #hsl {
   #background {
     position: fixed;
