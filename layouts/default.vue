@@ -46,8 +46,8 @@ export default {
       return this.$route.path == '/'
     },
     isHideNav() {
-      return true
-      // return this.isFull && (process.server || this.scroll.pos <= document.documentElement.clientHeight)
+      // return true
+      return this.isFull && (process.server || this.scroll.pos <= document.documentElement.clientHeight)
     },
     isTransparentNav() {
       return false // this.scroll.pos < 64
@@ -93,13 +93,10 @@ export default {
       this.onScroll = _.throttle(() => {
         const newPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
         const scroll = this.scroll || {}
-        const mainStore = useMainStore()
-        mainStore.$patch({
-          scroll: {
-            pos: newPos,
-            change: scroll && scroll.pos ? newPos - scroll.pos : 0,
-          }
-        })
+        this.$store.scroll = {
+          pos: newPos,
+          change: scroll && scroll.pos ? newPos - scroll.pos : 0,
+        }
       }, 200)
       this.onResize = _.throttle(() => {
         this.windowWidth = document.documentElement.clientWidth

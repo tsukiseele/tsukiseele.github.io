@@ -1,13 +1,13 @@
 <template lang="pug">
 .post-item(@click="$router.push(to)" :style="backgroundColor")
   .item-cover-box(v-if="cover")
-    img.item-cover(v-lazy="cover")
+    SImage.item-cover(:src="cover")
   .item-info 
     .item-title {{ title }}
     span.item-preview {{ description }}
     ul.item-labels
       li.item-label
-        SChip(:text="date | formatTimeAgo", icon="event_note")
+        SChip(:text="$util.formatTimeAgo(date)", icon="event_note")
       li.item-label(v-for="(label, i) in labels", :key="i")
         SChip(:text="label.name", icon="sell")
   //- .item-category 

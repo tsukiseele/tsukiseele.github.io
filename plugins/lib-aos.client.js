@@ -2,8 +2,11 @@ import AOS from "aos";
 
 import "aos/dist/aos.css";
 
-AOS.init();
-
-export default ({ app }, inject) => {
-  inject("aos", AOS);
-};
+export default defineNuxtPlugin(nuxtApp => {
+  AOS.init();
+  return {
+    provide: {
+      aos: AOS
+    }
+  }
+})

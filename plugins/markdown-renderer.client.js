@@ -3,7 +3,7 @@ import marked from 'marked'
 import katex from 'katex'
 import DOMPurify from 'dompurify'
 
-const hljs = require('@/plugins/utils/highlight.js')
+import hljs from '@/plugins/utils/highlight.js'
 /*
 import "highlight.js/styles/atom-one-dark-reasonable.css";
 import "highlight.js/styles/vs2015.css";
@@ -105,7 +105,7 @@ function mathsExpression(expr) {
 
 marked.setOptions({
   renderer,
-  highlight: code => hljs.default.highlightAuto(code).value,
+  highlight: code => hljs.highlightAuto(code).value,
   pedantic: false,
   gfm: true,
   tables: true,
@@ -139,6 +139,13 @@ function markdown(markdown) {
 /**
  * 属性注入
  */
-export default ({ app }, inject) => {
-  inject('markdown', md => markdown(md))
-}
+// export default ({ app }, inject) => {
+//   inject('markdown', md => markdown(md))
+// }
+export default defineNuxtPlugin(nuxtApp => {
+  return {
+    provide: {
+      markdown: md => markdown(md)
+    }
+  }
+})

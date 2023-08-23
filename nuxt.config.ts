@@ -9,8 +9,13 @@ export default defineNuxtConfig({
   //  router: {
   //   mode: process.env.MODE && process.env.MODE == 'static' ? 'hash' : 'history'
   // },
-  ssr: !(process.env.MODE && process.env.MODE == 'static'),
+  // ssr: false,//!(process.env.MODE && process.env.MODE == 'static'),
   // target: process.env.MODE && process.env.MODE.toLocaleLowerCase() == 'static' ? 'static' : 'server',
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL,
+    },
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   app: {
 
@@ -63,15 +68,13 @@ export default defineNuxtConfig({
     // '~/config.js',
     '~/plugins/inject.js',
     '~/plugins/services.js',
-    '~/plugins/utils/utils.js',
-    '~/plugins/utils/filter.js',
+    '~/plugins/utils.js',
+    // '~/plugins/utils/filter.js',
     '~/plugins/ascii.client.js',
     '~/plugins/markdown-renderer.client.js',
-    '~/plugins/lib-vue-lazyload.client.js',
-    '~/plugins/lib-vuex-persistedstate.client.js',
     '~/plugins/lib-aos.client.js',
-    '~/plugins/lib-aplayer.client.js',
-    '~/plugins/lib-vssue.client.js',
+    // '~/plugins/lib-aplayer.client.js',
+    // '~/plugins/lib-vssue.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -83,27 +86,13 @@ export default defineNuxtConfig({
   // Modules: https://go.nuxtjs.dev/config-modules
   // modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
 
-  // // Build Configuration: https://go.nuxtjs.dev/config-build
-  // build: {
-  //   babel: {
-  //     plugins: [['@babel/plugin-proposal-private-property-in-object', { loose: true }]],
-  //   },
-  //   extractCSS: {
-  //     ignoreOrder: true,
-  //   },
-  //   // analyze: true,
-  //   /*
-  //    ** You can extend webpack config here
-  //    */
-  //   extend(config, ctx) {},
-  // },
   modules: ['@pinia/nuxt'],
-  pinia: {
-    autoImports: [
-      // automatically imports `defineStore`
-      'defineMainStore', // import { defineStore } from 'pinia'
-    ],
-  },
+  // pinia: {
+  //   autoImports: [
+  //     // automatically imports `defineStore`
+  //     'defineMainStore', // import { defineStore } from 'pinia'
+  //   ],
+  // },
   imports: {
     dirs: ['stores'],
   },

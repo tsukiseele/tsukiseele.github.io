@@ -1,7 +1,9 @@
-import Vue from 'vue'
-import APlayer from '@moefe/vue-aplayer';
+// import Vue from 'vue'
+// import APlayer from '@moefe/vue-aplayer';
+// export default defineNuxtPlugin(nuxtApp => {
+//   Vue.use(APlayer, {
+//     defaultCover: '',
+//     productionTip: true,
+//   });
+// })
 
-Vue.use(APlayer, {
-  defaultCover: '',
-  productionTip: true,
-});

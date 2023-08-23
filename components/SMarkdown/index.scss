@@ -1,3 +1,9 @@
+@mixin screen-mobile {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+
 .markdown-preview {
   padding: 1.5rem;
   .markdown-image-preview-modal {

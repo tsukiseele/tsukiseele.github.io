@@ -6,7 +6,7 @@
       .project-list
         .project-item(v-for="(project, i) in projectClassify.items" :key="i" @click="onItemClick(project)") 
           .project-cover-wrapper
-            img.project-cover(v-lazy="project.cover" :alt="project.name")
+            SImage.project-cover(:src="project.cover" :alt="project.name")
           .project-description
             .project-name {{ project.name }}
             .project-desc {{ project.desc }}
@@ -18,25 +18,22 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
-import { useMainStore } from '~/store/index'
-
 export default {
-  setup() {
-    const store = useMainStore()
-    return { store }
-  },
   data: () => ({}),
   computed: {
-    ...mapState(useMainStore, ['projects']),
+    projects() {
+      return this.$store.projects
+    }
   },
   methods: {
     onItemClick(item) {
       item && item.link && window.open(item.link, '_blank')
     },
   },
-  async mounted() {
-  },
+  setup() {
+    const app = useNuxtApp()
+    app.$store.getProjects()
+  }
 }
 </script>
 <style lang="scss" scoped>
