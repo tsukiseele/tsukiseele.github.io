@@ -27,7 +27,8 @@
     "postcss-preset-env": "~7.3.3",
     "ress": "~4.0.0",
     "timeago.js": "~4.0.2",
-    "vssue": "~1.4.8"
+    "vssue": "~1.4.8",
+    "vue3-aplayer": "^1.7.3"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

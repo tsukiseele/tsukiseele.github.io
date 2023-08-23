@@ -1023,7 +1023,7 @@
     "@parcel/watcher-win32-arm64" "2.2.0"
     "@parcel/watcher-win32-x64" "2.2.0"
 
-"@pinia/nuxt@^0.4.11":
+"@pinia/nuxt@~0.4.11":
   version "0.4.11"
   resolved "https://registry.npmmirror.com/@pinia/nuxt/-/nuxt-0.4.11.tgz#1b3f728ae112d45deff5971376e05b8a8d64f720"
   integrity sha512-bhuNFngJpmBCdAqWguezNJ/oJFR7wvKieqiZrmmdmPR07XjsidAw8RLXHMZE9kUm32M9E6T057OBbG/22jERTg==
@@ -1484,7 +1484,7 @@
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.3.4.tgz#06e83c5027f464eef861c329be81454bc8b70780"
   integrity sha512-7OjdcV8vQ74eiz1TZLzZP4JwqM5fA94K6yntPS5Z25r9HDuGNzaGdgvwKYq6S+MxwF0TFRwe50fIR/MYnakdkQ==
 
-"@vueuse/core@^10.3.0":
+"@vueuse/core@~10.3.0":
   version "10.3.0"
   resolved "https://registry.npmmirror.com/@vueuse/core/-/core-10.3.0.tgz#b2dab7821ef206811b925fc935163c38056fd82b"
   integrity sha512-BEM5yxcFKb5btFjTSAFjTu5jmwoW66fyV9uJIP4wUXXU8aR5Hl44gndaaXp7dC5HSObmgbnR2RN+Un1p68Mf5Q==
@@ -4015,7 +4015,7 @@ joi@^17.7.0:
     "@sideway/formula" "^3.0.1"
     "@sideway/pinpoint" "^2.0.0"
 
-js-base64@^3.7.5:
+js-base64@~3.7.5:
   version "3.7.5"
   resolved "https://registry.npmmirror.com/js-base64/-/js-base64-3.7.5.tgz#21e24cf6b886f76d6f5f165bfcd69cc55b9e3fca"
   integrity sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==
@@ -4282,7 +4282,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.npmmirror.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==
 
-lodash@^4.11.2, lodash@^4.17.19, lodash@^4.17.21, lodash@^4.17.4:
+lodash@^4.11.2, lodash@^4.17.19, lodash@^4.17.21, lodash@^4.17.4, lodash@~4.17.21:
   version "4.17.21"
   resolved "https://registry.npmmirror.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -5234,7 +5234,7 @@ pify@^5.0.0:
   resolved "https://registry.npmmirror.com/pify/-/pify-5.0.0.tgz#1f5eca3f5e87ebec28cc6d54a0e4aaf00acc127f"
   integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
 
-pinia@>=2.1.0, pinia@^2.1.6:
+pinia@>=2.1.0, pinia@~2.1.6:
   version "2.1.6"
   resolved "https://registry.npmmirror.com/pinia/-/pinia-2.1.6.tgz#e88959f14b61c4debd9c42d0c9944e2875cbe0fa"
   integrity sha512-bIU6QuE5qZviMmct5XwCesXelb5VavdOWKWaB17ggk++NUwQWWbP5YnsONTk3b752QkW9sACiR81rorpeOMSvQ==
@@ -7318,6 +7318,15 @@ vue-i18n@^8.11.2:
   resolved "https://registry.npmmirror.com/vue-i18n/-/vue-i18n-8.28.2.tgz#913558066e274395c0a9f40b2f3393d5c2636840"
   integrity sha512-C5GZjs1tYlAqjwymaaCPDjCyGo10ajUphiwA922jKt9n7KPpqR7oM1PCwYzhB/E7+nT3wfdG3oRre5raIT1rKA==
 
+vue-loader@^16.1.2:
+  version "16.8.3"
+  resolved "https://registry.npmmirror.com/vue-loader/-/vue-loader-16.8.3.tgz#d43e675def5ba9345d6c7f05914c13d861997087"
+  integrity sha512-7vKN45IxsKxe5GcVCbc2qFU5aWzyiLrYJyUuMz4BQLKctCj/fmCa0w6fGiiQ2cLFetNcek1ppGJQDCup0c1hpA==
+  dependencies:
+    chalk "^4.1.0"
+    hash-sum "^2.0.0"
+    loader-utils "^2.0.0"
+
 vue-property-decorator@^8.1.1:
   version "8.5.1"
   resolved "https://registry.npmmirror.com/vue-property-decorator/-/vue-property-decorator-8.5.1.tgz#571a91cf8d2b507f537d79bf8275af3184572fff"
@@ -7331,6 +7340,13 @@ vue-router@^4.2.4:
   integrity sha512-9PISkmaCO02OzPVOMq2w82ilty6+xJmQrarYZDkjZBfl4RvYAlt4PKnEX21oW4KTtWfa9OuO/b3qk1Od3AEdCQ==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
+
+vue3-aplayer@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.npmmirror.com/vue3-aplayer/-/vue3-aplayer-1.7.3.tgz#ca393c4f702eb1b98e8a770b53ac366703936951"
+  integrity sha512-WkoPZRXlJQcIJD9vybmPobengIyVVTWGQtUbfQ/xzQ/qbDM77RN0RuCQKEz6Yv9nXRyal8uzwy8vCJQakxodyQ==
+  dependencies:
+    vue-loader "^16.1.2"
 
 vue@^2.5.17, vue@^2.6.10:
   version "2.7.14"

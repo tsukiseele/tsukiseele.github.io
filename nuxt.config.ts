@@ -18,7 +18,6 @@ export default defineNuxtConfig({
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   app: {
-
     head: {
       title: config.title,
       htmlAttrs: {
@@ -50,25 +49,14 @@ export default defineNuxtConfig({
       ]
     },
   },
-  // axios: {
-  //   retry: {
-  //     retries: 3,
-  //   },
-  // },
-  // Global CSS: https://go.nuxtjs.dev/config-css
+  // Global CSS
   css: ['ress', '~/assets/styles/main.scss'],
 
-  // Global variables, mixins and function
-  // styleResources: {
-  //   scss: ['~/assets/styles/variables.scss', '~/assets/styles/mixins.scss'],
-  // },
-
-  // Plugins to run before rendering pasge: https://go.nuxtjs.dev/config-plugins
+  // Plugins to run before rendering page
   plugins: [
-    // '~/config.js',
     '~/plugins/inject.js',
-    '~/plugins/services.js',
-    '~/plugins/utils.js',
+    '~/plugins/api.js',
+    '~/plugins/util.js',
     // '~/plugins/utils/filter.js',
     '~/plugins/ascii.client.js',
     '~/plugins/markdown-renderer.client.js',
@@ -77,14 +65,8 @@ export default defineNuxtConfig({
     // '~/plugins/lib-vssue.client.js',
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
+  // Auto import components
   components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  // buildModules: [],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  // modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
 
   modules: ['@pinia/nuxt'],
   // pinia: {

@@ -1,10 +1,15 @@
 <template lang="pug">
-client-only
-  aplayer(fixed crossOrigin="anonymous" :audio="musics" :lrcType="3" )
+ClientOnly
+  Aplayer(fixed crossOrigin="anonymous" :audio="musics" :lrcType="3" )
 </template>
 
 <script>
+import Aplayer from 'vue3-aplayer'
+
 export default {
+  components: {
+    Aplayer
+  },
   props: {
     musics: Array,
   },

@@ -1,4 +1,4 @@
-import { useMainStore } from '@/store/index.js'
+import { useMainStore } from '@/stores/index.js'
 
 export default defineNuxtPlugin(({ $pinia }) => {
   // watch($pinia.state, (state) => {

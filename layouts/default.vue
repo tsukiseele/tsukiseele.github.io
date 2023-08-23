@@ -29,7 +29,7 @@
 <script>
 import _ from 'lodash'
 import { mapState, mapStores } from 'pinia'
-import { useMainStore } from '../store/index'
+import { useMainStore } from '@/stores/index'
 import SiteConfig from '@/config'
 
 export default {

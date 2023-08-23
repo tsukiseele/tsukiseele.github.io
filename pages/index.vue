@@ -44,7 +44,7 @@
 
 <script>
 import { mapState } from 'pinia'
-import { useMainStore } from '~/store/index'
+import { useMainStore } from '@/stores/index'
 
 export default {
   data: () => ({
@@ -58,8 +58,6 @@ export default {
   },
   methods: {},
   async mounted() {
-    console.log(this.$service);
-    console.log(this.$cfg);
     try {
       this.hitokoto.content = this.navigation.introduction
       this.hitokoto.from = this.navigation.introductionFrom
@@ -85,3 +83,4 @@ export default {
 <style lang="scss" scoped>
 @import './index.scss';
 </style>
+stores/index

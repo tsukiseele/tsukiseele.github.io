@@ -32,7 +32,7 @@
 
 <script>
 import { mapState } from 'pinia'
-import { useMainStore } from '@/store/index'
+import { useMainStore } from '@/stores/index'
 
 export default {
   data: () => ({
@@ -80,3 +80,4 @@ export default {
 <style lang="scss" scoped>
 @import './[page].scss';
 </style>
+stores/index
