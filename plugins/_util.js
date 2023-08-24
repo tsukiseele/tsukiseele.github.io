@@ -1,6 +1,8 @@
-import * as timeago from "timeago.js";
+import * as timeago from 'timeago.js'
+import util from '@/utils/util'
 
 export default defineNuxtPlugin(nuxtApp => {
+  util()
   return {
     provide: {
       util: {
