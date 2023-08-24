@@ -9,7 +9,7 @@ export default {
   resource: 'https://fastly.jsdelivr.net/gh/tsukiseele/resource@main/',
   // base64编码的Github token
   // token: 'Z2hwX2UzbXo0eDFzMW1JeTlYYjJBYzZoc3lvMVA5eFpLaTN0ZnoxbA==',
-  token: 'Z2hwX0p3aUFZS1piRUt1OWx5dzFrMkExWHJ2TnROR0FrMjRmMEJxRw==',
+  token: 'Z2hwX0NmOE94MndYa3ZUTUtkNjBHU1lqMm9SbFJvMm92SzJvR3c2cA==',
   // Github OAuth口令，參見https://vssue.js.org/guide/github.html#config-and-start-your-vssue
   oAuth: {
     // Pre
