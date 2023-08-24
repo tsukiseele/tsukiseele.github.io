@@ -5,7 +5,7 @@
     .classify__list
       .classify__list-item(v-for="(item, index) in classify.items" :key="index")
         .item__cover-wrapper(v-if="item.cover")
-          SImage.item__cover(src="item.cover" :alt="item.name")
+          SImage.item__cover(:src="item.cover" :alt="item.name")
         .item__info
           .item__info-name {{ item.name }}
           .item__info-desc {{ item.desc }}

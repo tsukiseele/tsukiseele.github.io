@@ -1,22 +1,31 @@
 <template lang="pug">
-ClientOnly
-  Aplayer(fixed crossOrigin="anonymous" :audio="musics" :lrcType="3" )
+//- APlayer(fixed crossOrigin="anonymous" :audio="musics" :lrcType="3" )
+APlayer(float  crossOrigin="anonymous" :list="musics" :music="musics[0]" :lrcType="3" )
 </template>
 
 <script>
-import Aplayer from 'vue3-aplayer'
-
+// import APlayer from 'vue3-aplayer'
+import APlayer from '@moefe/vue-aplayer';
 export default {
   components: {
-    Aplayer
+    APlayer
   },
+  data: () => ({
+
+  }),
   props: {
     musics: Array,
   },
+  mounted() {
+    console.log(this.musics);
+  }
 }
 </script>
 <style lang="scss" scoped>
 ::v-deep.aplayer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
   &.aplayer-narrow .aplayer-body {
     left: -66px !important;
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);

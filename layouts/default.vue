@@ -21,7 +21,8 @@
     //- 页脚
     TheFooter#footer
     //- 播放器
-    TheAPlayer(:musics="musics")
+    //- ClientOnly
+    //-   TheAPlayer(v-if="musics && musics.length" :musics="musics")
     //- 返回顶部
     //- TheBackTop
 </template>
@@ -73,14 +74,23 @@ export default {
       try {
         const result = await (await fetch(SiteConfig.musicAPI, { method: 'GET', mode: 'cors' })).json()
         if (result.code == 200) {
+          // this.musics = result.playlist.tracks.map((item) => ({
+          //   id: item.id,
+          //   name: item.name,
+          //   artist: item.ar.map((item) => item.name).toString(),
+          //   cover: item.al.picUrl ? item.al.picUrl.replace('http://', 'https://') : '',
+          //   url: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
+          //   // lrc: `https://api.hlo.li/music/lyric?id=${item.id}`
+          // }))
           this.musics = result.playlist.tracks.map((item) => ({
             id: item.id,
-            name: item.name,
+            title: item.name,
             artist: item.ar.map((item) => item.name).toString(),
-            cover: item.al.picUrl ? item.al.picUrl.replace('http://', 'https://') : '',
-            url: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
+            pic: item.al.picUrl ? item.al.picUrl.replace('http://', 'https://') : '',
+            src: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
             // lrc: `https://api.hlo.li/music/lyric?id=${item.id}`
           }))
+          console.log(this.musics);
         }
       } catch (e) {
         console.log(e)

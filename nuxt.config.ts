@@ -53,17 +53,17 @@ export default defineNuxtConfig({
   css: ['ress', '~/assets/styles/main.scss'],
 
   // Plugins to run before rendering page
-  plugins: [
-    '~/plugins/inject.js',
-    '~/plugins/api.js',
-    '~/plugins/util.js',
-    // '~/plugins/utils/filter.js',
-    '~/plugins/ascii.client.js',
-    '~/plugins/markdown-renderer.client.js',
-    '~/plugins/lib-aos.client.js',
-    // '~/plugins/lib-aplayer.client.js',
-    // '~/plugins/lib-vssue.client.js',
-  ],
+  // plugins: [
+  //   '~/plugins/inject.js',
+  //   '~/plugins/api.js',
+  //   '~/plugins/util.js',
+  //   // '~/plugins/utils/filter.js',
+  //   '~/plugins/ascii.client.js',
+  //   '~/plugins/markdown-renderer.client.js',
+  //   '~/plugins/lib-aos.client.js',
+  //   // '~/plugins/lib-aplayer.client.js',
+  //   // '~/plugins/lib-vssue.client.js',
+  // ],
 
   // Auto import components
   components: true,

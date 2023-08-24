@@ -2,13 +2,13 @@
 .__nuxt-error-page
   .e404(v-if="statusCode == 404") 
     span.error-code {{ statusCode }} 
-    span.error-text ー 页面找不到
+    span.error-text ᅳ 页面找不到
   .e5xx(v-else-if="statusCode.toString().startsWith(5)") 
     span.error-code {{ statusCode }} 
-    span.error-text ー 服务器内部错误，请联系网站管理员
+    span.error-text ᅳ 服务器内部错误，请联系网站管理员
   .error(v-else)
     span.error-code {{ statusCode }} 
-    span.error-text ー {{ message }}
+    span.error-text ᅳ {{ message }}
   NuxtLink.back(to="/") 返回主页
 </template>
 

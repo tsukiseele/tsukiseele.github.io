@@ -11,3 +11,6 @@
 //     ...config.oAuth
 //   });
 // })
+export default defineNuxtPlugin(nuxtApp => {
+
+})

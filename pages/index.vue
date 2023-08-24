@@ -69,7 +69,7 @@ export default {
         }
       }
     } catch (error) {
-      console.log(`Hitikito failed to load. throw: ${error}`)
+      console.log(`Hitokoto failed to load. throw: ${error}`)
     }
 
     // document.querySelectorAll('.burst-12').forEach((el) => {
@@ -83,4 +83,3 @@ export default {
 <style lang="scss" scoped>
 @import './index.scss';
 </style>
-stores/index

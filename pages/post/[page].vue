@@ -80,4 +80,3 @@ export default {
 <style lang="scss" scoped>
 @import './[page].scss';
 </style>
-stores/index
