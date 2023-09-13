@@ -6,7 +6,8 @@ const owner = config.blog.owner
 const repository = config.blog.repository
 
 export const useGhFetch = (request, opts) => {
-  const TOKEN = `token ${Base64.decode(token)}`
+  // const TOKEN = `token ${Base64.decode(token)}`
+  const TOKEN = `token ${token.join('_')}`
   const BASE_URL = `https://api.github.com/repos/${owner}/${repository}`
 
   return useFetch(request, { baseURL: BASE_URL, headers: { 'Authorization': TOKEN }, ...opts })
