@@ -21,7 +21,8 @@
     //- 页脚
     TheFooter#footer
     //- 播放器
-    TheAPlayer(:musics="musics")
+    //- client-only
+      TheAPlayer(:musics="musics")
     //- 返回顶部
     //- TheBackTop
 </template>
