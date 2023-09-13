@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'pinia'
 
 export default {
   data: () => ({

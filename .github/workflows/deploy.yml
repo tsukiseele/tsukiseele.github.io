@@ -3,7 +3,7 @@ name: Deploy Nuxt site to Pages
 on:
   push:
     branches:
-      - main
+      - alpha
 permissions:
   contents: write
 jobs:
@@ -29,7 +29,7 @@ jobs:
         run: yarn
 
       - name: Generate
-        run: yarn build-static
+        run: yarn generate
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

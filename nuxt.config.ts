@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   //  router: {
   //   mode: process.env.MODE && process.env.MODE == 'static' ? 'hash' : 'history'
   // },
-  // ssr: false,//!(process.env.MODE && process.env.MODE == 'static'),
+  ssr: false,//!(process.env.MODE && process.env.MODE == 'static'),
   // target: process.env.MODE && process.env.MODE.toLocaleLowerCase() == 'static' ? 'static' : 'server',
   runtimeConfig: {
     public: {
