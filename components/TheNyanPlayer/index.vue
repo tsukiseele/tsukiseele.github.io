@@ -9,10 +9,10 @@
     .nyan-player__timer {{ getCurrentTimeText() }}
 
     .nyan-player__controlbar 
-      SIcon(name='skip_previous')
-      SIcon(name='pause')
-      SIcon(name='play_arrow')
-      SIcon(name='skip_next')
+      SIcon(name='skip_previous' @click="onPlayPrev")
+      SIcon(name='pause' @click="onPause")
+      SIcon(name='play_arrow' @click="onResume")
+      SIcon(name='skip_next' @click="onPlayNext")
       SIcon(name='list' @click="onPlayListSwitch")
   .nyan-player__mini-switch(@click="onStatusSwitch")
     SIcon(name='chevron_left')
@@ -48,34 +48,16 @@ export default defineComponent({
   },
   methods: {
     formatDuraton(time) {
-      const t = Number(time)
-      if (t && t > -1) {
-        var hour = t / 3600;
-        var min = t / 60 % 60;
-        var sec = time % 60;
-
-        return `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
-        // if (hour < 10) {
-        //   time = '0' + hour + ":";
-        // } else { time = hour + ":"; }
-        // if (min < 10) {
-        //   time += "0";
-        // }
-        // time += min + ":";
-        // if (sec < 10) {
-        //   time += "0";
-        // }
-        // time += sec;
-        // return t
-      }
-       return 0;
+      return time && time > -1 ?
+        `${String(Math.floor(time / 60)).padStart(2, '0')}:${String(Math.floor(time % 60)).padStart(2, '0')}`
+        : `00:00`;
     },
     getCurrentTimeText() {
       if (this.currentStatus) {
         // return `${currentStatus.currentTime / 60}:${currentStatus.currentTime % 60} / 
         //     ${currentStatus.duration / 60}:${currentStatus.duration % 60}`
         console.log(this.currentStatus);
-        return this.formatDuraton(this.currentStatus.currentTime)
+        return `${this.formatDuraton(this.currentStatus.currentTime)}/${this.formatDuraton(this.currentStatus.duration)}`
         // return `${new Date(Number(this.currentStatus.currentTime)).format('hh:mm:ss')}/${new Date(Number(this.currentStatus.duration)).format('hh:mm:ss')}`
       }
       return ''
@@ -98,6 +80,10 @@ export default defineComponent({
     onPlayListSwitch() {
       this.isHidePlayList = !this.isHidePlayList
     },
+    onResume() {
+
+      this.audio.play()
+    },
     onPlayNext() {
       this.playMusicByIndex(this.currentIndex + 1)
       // this.currentMusic = this.musics[this.currentIndex + 1 >= this.musics.length ? this.musics[0] : ]
@@ -106,7 +92,7 @@ export default defineComponent({
       this.playMusicByIndex(this.currentIndex - 1)
     },
     onPause() {
-
+      this.audio.pause()
     },
     onStatusSwitch() {
       // this.isHidePlayList = false
