@@ -50,7 +50,7 @@ export default function() {
           chnStr = chnStr.substring(0, chnStr.length - 1)
         }
         chnStr += tmpUnit
-      }
+      } 
       str = str.substring(1)
     }
     if (chnStr.length > 1) {

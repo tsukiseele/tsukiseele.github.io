@@ -1,16 +1,20 @@
 <template lang="pug">
 .info-card.card
   SImage.card-icon(:src="icon")
-  .card-title TsukiSeele
-  .card-info Tsutsukakushi Tsukiko
+  .card-title Nyarray
+  .card-alias (aka TsukiSeele)
   hr
+  .card-info Cuteness is justice
   .card-links
     a.normal(href="https://github.com/tsukiseele", target="_brank") 
-      i.fa.fa-github.fa-lg(aria-hidden="true")
+      SIcon(name='github')
+      //- i.mdi.mdi-github(aria-hidden="true")
     a.normal(href="https://twitter.com/tsukiseele", target="_brank") 
-      i.fa.fa-twitter.fa-lg(aria-hidden="true")
+      SIcon(name='twitter')
+      //- i.mdi.mdi-twitter(aria-hidden="true")
     a.normal(href="mailto:tsukiseele@gmail.com") 
-      i.fa.fa-envelope.fa-lg(aria-hidden="true", style="font-size: 1.15em")
+      SIcon(name='mail')
+      //- i.mdi.mdi-envelope(aria-hidden="true", style="font-size: 1.15em")
 </template>
 
 <script>
@@ -59,6 +63,14 @@ export default {
     font-family: InfoDisplay;
     color: var(--color-text-primary);
   }
+
+  .card-alias {
+    font-size: 1rem;
+    font-weight: normal;
+    font-family: InfoDisplay;
+    color: var(--color-text-primary);
+    margin-top: -.5rem;
+  }
   .card-info {
     color: var(--color-text-secondary);
     font-family: InfoDisplay;
@@ -67,9 +79,9 @@ export default {
 
   .card-links {
     color: var(--color-text);
-    cursor: pointer;
-    i {
-      padding: 0.33rem 1rem;
+    cursor: pointer;  
+    a {
+      padding: 0 1rem;
     }
   }
 }

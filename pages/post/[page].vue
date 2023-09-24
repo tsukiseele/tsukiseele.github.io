@@ -2,8 +2,8 @@
 #content
   main#main
     .aside
-      TheInfoCard(:icon='avatar')
-      .aside-static
+      TheInfoCard.aside-static(:icon='avatar')
+      //- .aside-static
         .aside-decorate.card
           .decorate-burst-12 
             .burst-12 

@@ -12,11 +12,11 @@
         |.
         span.info--spacer |
         | Powered by 
-        a.info--nuxtjs(href="https://nuxtjs.org/" target="_blank") Nuxt.js
+        a.info--nuxtjs(href="https://nuxtjs.org/" target="_blank") Nuxt3
         |.
         span.info--spacer |
         |Theme 
-        a.info--color-secondary(href="https://github.com/tsukiseele/HSL" target="_blank") HSL
+        a.info--color-secondary(href="https://github.com/tsukiseele/HSL" target="_blank") Tirsk
         |.
 </template>
 

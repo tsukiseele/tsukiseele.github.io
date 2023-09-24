@@ -1,5 +1,5 @@
 <template lang="pug">
-i.material-symbols-rounded(v-if="!svg", aria-hidden="true", @click="$emit('click')") {{ icon }}
+i.material-symbols-rounded(v-if="!svg", aria-hidden="true") {{ icon }}
 i(v-else)
   svg.svg-icon(:src="svg" viewBox="0 0 24 24")
     path(fill="currentColor" :d="svg")

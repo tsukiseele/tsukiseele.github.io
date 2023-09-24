@@ -23,6 +23,8 @@
     //- 播放器
     //- ClientOnly
     //-   TheAPlayer(v-if="musics && musics.length" :musics="musics")
+    ClientOnly
+      TheNyanPlayer(v-if="musics && musics.length" :musics="musics")
     //- 返回顶部
     //- TheBackTop
 </template>
