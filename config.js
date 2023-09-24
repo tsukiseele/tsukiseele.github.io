@@ -71,6 +71,7 @@ export default {
     },
   ],
   backgroundTheme: 'cicada-stripes',
+  // backgroundTheme: 'steps',
   sideTheme: 'tartan'
   // backgroundThemes: [
   //   'cicada-stripes',

@@ -1,10 +1,13 @@
 <template lang="pug">
 .nyan-player(:class="{ 'nyan-player-mini': isMinimize }")
-  audio.nyan-player__audio(ref="audio" :src="currentMusic.src")
+  audio.nyan-player__audio(ref="audio" :src="currentMusic.src" autoplay)
   img.nyan-player__cover(v-show="currentMusic.pic" :src="currentMusic.pic" alt="")
   .nyan-player__status
     .nyan-player__status-title {{ currentMusic.title ?? '未播放音乐' }}
-    .nyan-player__status-artist {{ currentMusic.artist ?? '-' }}
+      span.nyan-player__status-artist  - {{ currentMusic.artist ?? '-' }}
+    .nyan-player__progress
+    .nyan-player__timer {{ getCurrentTimeText() }}
+
     .nyan-player__controlbar 
       SIcon(name='skip_previous')
       SIcon(name='pause')
@@ -26,21 +29,68 @@ export default defineComponent({
     currentMusic: {},
     isHidePlayList: true,
     isMinimize: false,
+    currentStatus: null
   }),
 
   computed: {
     audio() {
       return this.$refs.audio
+    },
+    audio2() {
+      return {
+        ref: this.$refs.audio
+      }
     }
   },
   mounted() {
     console.log(this.audio);
-
+    this.audio.addEventListener('timeupdate', this.onTimeUpdate)
   },
   methods: {
+    formatDuraton(time) {
+      const t = Number(time)
+      if (t && t > -1) {
+        var hour = t / 3600;
+        var min = t / 60 % 60;
+        var sec = time % 60;
+
+        return `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
+        // if (hour < 10) {
+        //   time = '0' + hour + ":";
+        // } else { time = hour + ":"; }
+        // if (min < 10) {
+        //   time += "0";
+        // }
+        // time += min + ":";
+        // if (sec < 10) {
+        //   time += "0";
+        // }
+        // time += sec;
+        // return t
+      }
+       return 0;
+    },
+    getCurrentTimeText() {
+      if (this.currentStatus) {
+        // return `${currentStatus.currentTime / 60}:${currentStatus.currentTime % 60} / 
+        //     ${currentStatus.duration / 60}:${currentStatus.duration % 60}`
+        console.log(this.currentStatus);
+        return this.formatDuraton(this.currentStatus.currentTime)
+        // return `${new Date(Number(this.currentStatus.currentTime)).format('hh:mm:ss')}/${new Date(Number(this.currentStatus.duration)).format('hh:mm:ss')}`
+      }
+      return ''
+    },
+    onTimeUpdate(e) {
+      // console.log(e);
+      this.currentStatus = {
+        currentTime: e.target.currentTime,
+        duration: e.target.duration
+      }
+    },
     playMusicByIndex(newIndex) {
       this.currentIndex = newIndex > this.musics.length - 1 ? 0 : newIndex < 0 ? this.musics.length - 1 : newIndex;
       this.currentMusic = this.musics[this.currentIndex]
+      this.audio.play()
     },
     onMusicClick(index) {
       this.playMusicByIndex(index)
@@ -78,7 +128,7 @@ i {
   --minilize-btn-width: 1.25em;
   --minilize-btn-color: hsla(200, 80%, 20%, 1);
   --minilize-btn-bg: hsla(0, 0%, 95%, 1);
-  --max-height-playlist: 12em;
+  --max-height-playlist: 16em;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -87,8 +137,9 @@ i {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  max-width: 24em;
+  max-width: 25em;
   width: 100%;
+  height: var(--min-size);
   transition: .3s ease;
   padding-right: var(--minilize-btn-width);
 
@@ -106,9 +157,8 @@ i {
     overflow-y: scroll;
     left: 0;
     bottom: 100%;
-
     width: 100%;
-    background-color: #fefefe;
+    background-color: white;
     transform-origin: 100% 100%;
     transition: .3s ease;
 
