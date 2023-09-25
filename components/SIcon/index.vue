@@ -27,11 +27,16 @@ export default {
       website: 'language',
     },
   }),
-  mounted() {
-    if (this.svgIcon[this.name]) {
-      this.svg = this.svgIcon[this.name]
-    } else {
-      this.icon = this.aliasMap[this.name] ? this.aliasMap[this.name] : this.name
+  watch: {
+    name: {
+      handler(nv, ov) {
+        if (this.svgIcon[this.name]) {
+          this.svg = this.svgIcon[this.name]
+        } else {
+          this.icon = this.aliasMap[this.name] ? this.aliasMap[this.name] : this.name
+        }
+      },
+      immediate: true
     }
   },
 }
@@ -42,6 +47,7 @@ export default {
   width: 1em;
   height: 1em;
 }
+
 i {
   font-size: inherit;
   // width: 1em;
