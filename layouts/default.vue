@@ -84,6 +84,10 @@ export default {
           //   url: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
           //   // lrc: `https://api.hlo.li/music/lyric?id=${item.id}`
           // }))
+
+          // NEW
+          this.musics = await (await fetch(`/song/detail?ids=347230,347231`))
+          // OLD
           this.musics = result.playlist.tracks.map((item) => ({
             id: item.id,
             title: item.name,
@@ -118,9 +122,9 @@ export default {
       this.$nextTick(() => this.onScroll() || this.onResize())
     },
   },
-  mounted() {
+  async mounted() {
     process.client && this.registerEventListener()
-    this.getMusicList()
+    this.musics = await this.$cfg.musicRequestMethod()
   },
   destroyed() {
     window.removeEventListener('scroll', this.onScroll)
