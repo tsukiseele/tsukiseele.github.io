@@ -19,7 +19,9 @@
         SIcon(v-else name='playlist_play' @click='onPlayModeSwitch')
         SIcon(name='list' @click='onPlayListSwitch')
     .nyan-player__progress(:style='`--progress: ${currentStatus ? currentStatus.currentTime / currentStatus.duration * 100 : 0}%;`')
-      .nyan-player__bar
+      //- .nyan-player__bar
+      NPSeekBar.nyan-player__seekbar
+
       .nyan-player__timer {{ getCurrentTimeText() }}
   .nyan-player__mini-switch(@click='onStatusSwitch')
     SIcon(v-if='isMinimize' name='chevron_right')
@@ -32,9 +34,15 @@
 </template>
 
 <script>
+
+import NPSeekBar from './seekbar.vue'
+
 export default defineComponent({
   setup() { return { PLAYMODE_LIST_LOOP: 1, PLAYMODE_SINGLE_LOOP: 2, PLAYMODE_RANDOM: 4 } },
   props: ['musics'],
+  components: {
+    NPSeekBar
+  },
   data: () => ({
     currentIndex: 0,
     currentMusic: {},
@@ -55,6 +63,7 @@ export default defineComponent({
   },
   mounted() {
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
+    this.audio.addEventListener('onended', this.onPlayNext)
     this.musics && this.musics.length && this.playMusicByIndex(0)
   },
   beforeDestroy() {
@@ -331,15 +340,6 @@ i {
 
   }
 
-  // .nyan-player__cover-control-pause {
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   color: white;
-  // }
-
   img {
     width: var(--min-size);
     height: var(--min-size);
@@ -393,7 +393,9 @@ i {
   display: flex;
   align-items: center;
   width: 100%;
-
+  .nyan-player__seekbar {
+    flex: 1;
+  }
   .nyan-player__bar {
     flex: 1;
     display: flex;
