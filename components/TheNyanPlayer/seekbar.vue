@@ -124,7 +124,7 @@ export default defineComponent({
     top: 50%;
     transform: translateY(-50%);
     height: 2px;
-    background-color: hsla(220, 40%, 80%, 1);
+    background-color: hsla(220, 20%, 90%, 1);
   }
 
   .np-seekbar__btn {
@@ -133,7 +133,7 @@ export default defineComponent({
     top: 50%;
     left: 0;  
     transform: translateY(-50%);
-    background-color: hsla(220, 80%, 80%, 1);
+    background-color: hsla(220, 40%, 90%, 1);
   }
 }
 

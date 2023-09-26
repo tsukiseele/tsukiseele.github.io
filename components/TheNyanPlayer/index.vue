@@ -122,7 +122,13 @@ export default defineComponent({
     onPlayNext() {
       switch (this.playMode) {
         case this.PLAYMODE_RANDOM:
-          this.playMusicByIndex(this.currentIndex + 1)
+          const indexList = Array.from({length: this.musics.length}, (x, i) => i)
+          if (indexList.length > 1) 
+            indexList.pop(this.currentIndex)
+          const newIndex = indexList[Math.floor(Math.random() * indexList.length)]
+
+          // const randomList = this.musics.map((_, index))filter((item, index) => index != this.currentIndex)
+          this.playMusicByIndex(newIndex)
           break;
         case this.PLAYMODE_SINGLE_LOOP:
           this.playMusicByIndex(this.currentIndex)
