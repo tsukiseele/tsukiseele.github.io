@@ -19,9 +19,7 @@
         SIcon(v-else name='playlist_play' @click='onPlayModeSwitch')
         SIcon(name='list' @click='onPlayListSwitch')
     .nyan-player__progress(:style='`--progress: ${currentStatus ? currentStatus.currentTime / currentStatus.duration * 100 : 0}%;`')
-      //- .nyan-player__bar
-      NPSeekBar.nyan-player__seekbar
-
+      NPSeekBar.nyan-player__seekbar(v-model:value="currentProgress")
       .nyan-player__timer {{ getCurrentTimeText() }}
   .nyan-player__mini-switch(@click='onStatusSwitch')
     SIcon(v-if='isMinimize' name='chevron_right')
@@ -52,7 +50,6 @@ export default defineComponent({
     playMode: 1,
     isAutoHidden: false,
   }),
-
   computed: {
     audio() {
       return this.$refs.audio
@@ -60,16 +57,27 @@ export default defineComponent({
     isPlaying() {
       return this.$refs.audio && this.audio && !this.audio.paused
     },
+
+    currentProgress: {
+      get() {
+        return this.currentStatus ? this.currentStatus.currentTime / this.currentStatus.duration : 0
+      },
+      set(value) {
+        this.audio.currentTime = this.audio.duration * value
+      }
+    }
   },
   mounted() {
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
-    this.audio.addEventListener('onended', this.onPlayNext)
+    this.audio.addEventListener('ended', this.onPlayNext)
     this.musics && this.musics.length && this.playMusicByIndex(0)
+    this.playMode = localStorage.getItem('nyan_player_playmode')
   },
   beforeDestroy() {
     this.audio.removeEventListener('timeupdate', this.onTimeUpdate)
 
   },
+
   methods: {
     formatDuraton(time) {
       return time && time > -1 ?
@@ -109,9 +117,20 @@ export default defineComponent({
           this.playMode = this.PLAYMODE_LIST_LOOP
           break
       }
+      localStorage.setItem('nyan_player_playmode', this.playMode)
     },
     onPlayNext() {
-      this.playMusicByIndex(this.currentIndex + 1)
+      switch (this.playMode) {
+        case this.PLAYMODE_RANDOM:
+          this.playMusicByIndex(this.currentIndex + 1)
+          break;
+        case this.PLAYMODE_SINGLE_LOOP:
+          this.playMusicByIndex(this.currentIndex)
+          break;
+        default:
+          this.playMusicByIndex(this.currentIndex + 1)
+          break;
+      }
     },
     onPlayPrev() {
       this.playMusicByIndex(this.currentIndex - 1)
@@ -161,6 +180,7 @@ i {
 
   &.nyan-player-mini {
     width: calc(var(--min-size) + var(--minilize-btn-width));
+
     .nyan-player__status {
       transform: scaleX(0);
     }
@@ -168,6 +188,7 @@ i {
 
   &.nyan-player-auto-hidden {
     transform: translateX(calc(-100% + var(--minilize-btn-width)));
+
     &:hover {
       transform: translateX(0);
     }
@@ -362,11 +383,11 @@ i {
     align-items: center;
     justify-content: center;
     user-select: none;
-    cursor: pointer;
     flex: 1;
 
     i {
       padding: 0 .25rem;
+      cursor: pointer;
     }
 
     .controlbar-right {
@@ -393,9 +414,11 @@ i {
   display: flex;
   align-items: center;
   width: 100%;
+
   .nyan-player__seekbar {
     flex: 1;
   }
+
   .nyan-player__bar {
     flex: 1;
     display: flex;
@@ -429,5 +452,4 @@ i {
     color: hsla(0, 0%, 50%, 1);
     padding-left: .5rem;
   }
-}
-</style>
+}</style>
