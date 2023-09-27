@@ -85,7 +85,7 @@ export default defineComponent({
     this.audio.addEventListener('ended', e => this.onPlayControl())
     this.musics && this.musics.length && this.playListControl(0)
     this.playMode = Number(localStorage.getItem('nyan_player_playmode'))
-    this.autohidden = Boolean(localStorage.getItem('nyan_player_autohidden'))
+    this.isAutoHidden = Boolean(localStorage.getItem('nyan_player_autohidden'))
   },
   methods: {
     playListControl(skip, musics = this.musics) {
@@ -97,7 +97,7 @@ export default defineComponent({
     playMusicByIndex(index, musics = this.musics) {
       this.currentMusic = musics[index]
       this.audio.play()
-      
+
       const domIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
       this.$refs.playlist.children[domIndex].scrollIntoView({ behavior: "smooth" })
     },
