@@ -86,6 +86,7 @@ export default defineComponent({
     this.musics && this.musics.length && this.playListControl(0)
     this.playMode = Number(localStorage.getItem('nyan_player_playmode'))
     this.isAutoHidden = Boolean(localStorage.getItem('nyan_player_autohidden'))
+    this.currentMusic = JSON.parse(localStorage.getItem('nyan_player_currentmusic'))
   },
   methods: {
     playListControl(skip, musics = this.musics) {
@@ -97,6 +98,7 @@ export default defineComponent({
     playMusicByIndex(index, musics = this.musics) {
       this.currentMusic = musics[index]
       this.audio.play()
+      localStorage.setItem('nyan_player_currentmusic', this.currentMusic)
 
       const domIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
       this.$refs.playlist.children[domIndex].scrollIntoView({ behavior: "smooth" })
