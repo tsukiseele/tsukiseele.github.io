@@ -58,21 +58,22 @@ export default defineComponent({
     onSeekEnd(e) {
       this.$emit('end', e)
     },
-    onTouchStart(e) {
+    onTouchStart(e) { 
+      e.changedTouches && this.updatePosition(e.changedTouches[0])
       this.onSeekStart()
-      this.updatePosition(e, this.$refs.seekbar)
     },
     onTouchMove(e) {
       e.changedTouches && this.updatePosition(e.changedTouches[0])
     },
     onTouchEnd(e) {
+      e.changedTouches && this.updatePosition(e.changedTouches[0])
       this.onSeekEnd()
     },
     onMouseDown(e) {
       e.preventDefault()
-      this.onSeekStart()
       this.isSliding = true
       this.updatePosition(e, this.$refs.seekbar)
+      this.onSeekStart()
     },
     onMouseMove(e) {
       e.preventDefault()
@@ -83,8 +84,8 @@ export default defineComponent({
     onMouseUp(e) {
       e.preventDefault();
       if (this.isSliding) {
-        this.onSeekEnd()
         this.isSliding = false
+        this.onSeekEnd()
       }
     },
     setPosition(value) {
@@ -111,8 +112,11 @@ export default defineComponent({
         const rect = parent.getBoundingClientRect()
         const pos = e.clientX - rect.left
         const range = this.getSeekbarRange()
+        console.log(e);
+        console.log(pos, e.clientX, rect.left);
         this.position = pos < range.min ? range.min : pos > range.max ? range.max : pos
         console.log(this.position / range.length);
+        console.log(this.position, range.length);
         this.mValue = this.position / range.length
       }
     },
@@ -136,7 +140,7 @@ export default defineComponent({
     top: 50%;
     transform: translateY(-50%);
     height: 2px;
-    background-color: hsla(220, 20%, 90%, 1);
+    background-color: hsla(330, 40%, 80%, 1);
   }
 
   .np-seekbar__btn {
@@ -145,7 +149,7 @@ export default defineComponent({
     top: 50%;
     left: 0;  
     transform: translateY(-50%);
-    background-color: hsla(220, 40%, 90%, 1);
+    background-color: hsla(330, 60%, 80%, 1);
   }
 }
 

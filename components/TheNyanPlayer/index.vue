@@ -14,17 +14,18 @@
       SIcon(v-else name='pause' @click='onPause')
       SIcon(name='skip_next' @click='() => onPlayControl(1)')
       .controlbar-right
-        SIcon(v-if='playMode == PLAYMODE_SINGLE_LOOP' name='laps' @click='onPlayModeSwitch')
+        SIcon(:name='isAutoHidden ? `visibility_off` : `visibility`' @click='onAutoHiddenSwitch')
+        SIcon(v-if='playMode == PLAYMODE_SINGLE_LOOP' name='repeat_one' @click='onPlayModeSwitch')
         SIcon(v-else-if='playMode == PLAYMODE_RANDOM' name='shuffle' @click='onPlayModeSwitch')
-        SIcon(v-else name='playlist_play' @click='onPlayModeSwitch')
+        SIcon(v-else name='laps' @click='onPlayModeSwitch')
         SIcon(name='list' @click='onPlayListSwitch')
     .nyan-player__progress(:style='`--progress: ${displayStatus ? displayStatus.currentTime / displayStatus.duration * 100 : 0}%;`')
       NPSlider.nyan-player__slider(v-model:value="sliderValue" @start="onSlidingStart" @end="onSlidingEnd")
-      .nyan-player__timer {{ getCurrentTimeText() }}
+      .nyan-player__timer {{ currentTimeText }}
   .nyan-player__mini-switch(@click='onStatusSwitch')
     SIcon(v-if='isMinimize' name='chevron_right')
     SIcon(v-else name='chevron_left')
-  ul.nyan-player__playlist(:class='{ hidden: isHidePlayList || isMinimize }')
+  ul.nyan-player__playlist(ref='playlist' :class='{ hidden: isHidePlayList || isMinimize }')
     li(v-for='(music, index) in musics' @click='playMusicByIndex(index)' :class='{ active: currentMusic.uuid == music.uuid }') 
       span.playlist-number {{ index + 1 }} 
       span.playlist-name {{ music.title }}
@@ -53,6 +54,9 @@ export default defineComponent({
     audio() {
       return this.$refs.audio
     },
+    currentTimeText() {
+      return this.displayStatus ? `${this.formatDuraton(this.displayStatus.currentTime)} / ${this.formatDuraton(this.displayStatus.duration)}` : '0:00'
+    },
     sliderValue: {
       get() {
         return this.displayStatus ? this.displayStatus.currentTime / this.displayStatus.duration : 0
@@ -63,7 +67,7 @@ export default defineComponent({
     },
     shufflePlayList() {
       return this.shuffle(this.musics)
-    }
+    },
   },
   watch: {
     musics: {
@@ -72,18 +76,16 @@ export default defineComponent({
           item.uuid = index
           return item
         })
-      }, 
+      },
       immediate: true
     }
   },
   mounted() {
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
-    this.audio.addEventListener('ended', this.onPlayControl(1))
+    this.audio.addEventListener('ended', e => this.onPlayControl())
     this.musics && this.musics.length && this.playListControl(0)
     this.playMode = Number(localStorage.getItem('nyan_player_playmode'))
-  },
-  beforeDestroy() {
-    this.audio.removeEventListener('timeupdate', this.onTimeUpdate)
+    this.autohidden = Boolean(localStorage.getItem('nyan_player_autohidden'))
   },
   methods: {
     playListControl(skip, musics = this.musics) {
@@ -95,13 +97,17 @@ export default defineComponent({
     playMusicByIndex(index, musics = this.musics) {
       this.currentMusic = musics[index]
       this.audio.play()
+      
+      const domIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
+      this.$refs.playlist.children[domIndex].scrollIntoView({ behavior: "smooth" })
     },
     onSlidingStart() {
       this.isSliding = true
     },
     onSlidingEnd() {
-      this.audio.currentTime = this.audio.duration * this.sliderValue
       this.isSliding = false
+      const targetTime = this.audio.duration * this.sliderValue
+      this.audio.currentTime = isNaN(targetTime) ? 0 : targetTime
     },
     onTimeUpdate(e) {
       if (!this.isSliding) {
@@ -111,6 +117,10 @@ export default defineComponent({
           paused: e.target.paused,
         }
       }
+    },
+    onAutoHiddenSwitch() {
+      this.isAutoHidden = !this.isAutoHidden
+      localStorage.setItem('nyan_player_autohidden', this.isAutoHidden)
     },
     onPlayListSwitch() {
       this.isHidePlayList = !this.isHidePlayList
@@ -170,9 +180,6 @@ export default defineComponent({
         `${String(Math.floor(time / 60)).padStart(1, '0')}:${String(Math.floor(time % 60)).padStart(2, '0')}`
         : '0:00';
     },
-    getCurrentTimeText() {
-      return this.displayStatus ? `${this.formatDuraton(this.displayStatus.currentTime)} / ${this.formatDuraton(this.displayStatus.duration)}` : '0:00'
-    },
   }
 
 })
@@ -200,7 +207,7 @@ i {
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
-  max-width: 26rem;
+  max-width: 28rem;
   width: 100%;
   height: var(--min-size);
   transition: var(--animation-expand);
@@ -259,7 +266,7 @@ i {
 
     li {
       position: relative;
-      padding: 0 .5rem;
+      padding: 0 .5rem 0 .25rem;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -294,7 +301,9 @@ i {
 
       .playlist-number {
         font-weight: lighter;
-        margin: 0 .5rem;
+        font-size: .75rem;
+        width: 2rem;
+        text-align: center;
         color: hsla(0, 0%, 50%, 1);
       }
 
@@ -427,7 +436,7 @@ i {
 
       i {
         color: hsla(0, 0%, 25%, 1);
-        font-size: 1.25rem;
+        font-size: 1.125rem;
       }
     }
   }
