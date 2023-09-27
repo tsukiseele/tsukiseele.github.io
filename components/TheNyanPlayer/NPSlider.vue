@@ -4,10 +4,10 @@
   @touchstart.stop.prevent="onTouchStart" 
   @touchmove.stop.prevent="onTouchMove" 
   @touchend.stop.prevent="onTouchEnd"
+  @mousedown.stop.prevent="onMouseDown" 
 )
-  .np-seekbar__btn(ref="seek" :style="{width: `${position}px`}" )
+  .np-seekbar__btn(ref="seek" :style="{ width: `${ position }px`}" )
 </template>
-
 
 <script>
 const TYPE_SEEKBAR_DOT = 1
@@ -39,35 +39,53 @@ export default defineComponent({
     }
   },
   data: () => ({
-    isMouseDown: false,
+    isSliding: false,
     position: 0,
   }),
+  emits: ['update:value', 'start', 'end'],
   mounted() {
-    document.addEventListener('mousedown', this.onMouseDown)
     document.addEventListener('mousemove', this.onMouseMove)
     document.addEventListener('mouseup', this.onMouseUp)
   },
   beforeDestroy() {
-    document.removeEventListener('mousedown', this.onMouseDown)
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onMouseUp)
   },
   methods: {
+    onSeekStart(e) {
+      this.$emit('start', e)
+    },
+    onSeekEnd(e) {
+      this.$emit('end', e)
+    },
     onTouchStart(e) {
+      this.onSeekStart()
+      this.updatePosition(e, this.$refs.seekbar)
     },
     onTouchMove(e) {
       e.changedTouches && this.updatePosition(e.changedTouches[0])
     },
     onTouchEnd(e) {
-
+      this.onSeekEnd()
     },
     onMouseDown(e) {
       e.preventDefault()
-      this.isMouseDown = true
+      this.onSeekStart()
+      this.isSliding = true
+      this.updatePosition(e, this.$refs.seekbar)
+    },
+    onMouseMove(e) {
+      e.preventDefault()
+      if (this.isSliding) {
+        this.updatePosition(e, this.$refs.seekbar)
+      }
     },
     onMouseUp(e) {
       e.preventDefault();
-      this.isMouseDown = false
+      if (this.isSliding) {
+        this.onSeekEnd()
+        this.isSliding = false
+      }
     },
     setPosition(value) {
       this.position = this.getSeekbarRange().length * value
@@ -96,12 +114,6 @@ export default defineComponent({
         this.position = pos < range.min ? range.min : pos > range.max ? range.max : pos
         console.log(this.position / range.length);
         this.mValue = this.position / range.length
-      }
-    },
-    onMouseMove(e) {
-      e.preventDefault()
-      if (this.isMouseDown) {
-        this.updatePosition(e, this.$refs.seekbar)
       }
     },
   }
