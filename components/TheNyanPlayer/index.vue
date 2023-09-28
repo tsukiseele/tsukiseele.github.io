@@ -1,13 +1,13 @@
 <template lang="pug">
 .nyan-player(:class='{ "nyan-player-mini": isMinimize, "nyan-player-auto-hidden": isAutoHidden && isMinimize}')
-  audio.nyan-player__audio(ref='audio' :src='currentMusic.src' autoplay preload="auto")
+  audio.nyan-player__audio(ref='audio' :src='currentMusic.src' :autoplay="isAutoPlay" preload="auto")
   .nyan-player__cover(v-if='currentMusic && currentMusic.pic' @click='displayStatus && isMinimize ? displayStatus.paused ? onResume() : onPause() : 0' :data-playing="displayStatus && !displayStatus.paused")
     img.nyan-player__cover(:src='currentMusic.pic' alt='')
     SIcon.nyan-player__cover-control(v-if='displayStatus && isMinimize' :name='displayStatus && displayStatus.paused ? "play_circle" : "pause_circle"' @click='onPause')
   .nyan-player__cover(v-else style='background: skyblue' alt='')
   .nyan-player__status
-    .nyan-player__status-title {{ currentMusic.title ?? 'None' }}
-      span.nyan-player__status-artist {{ currentMusic.artist ?? '' }}
+    .nyan-player__status-title {{ currentMusic.title || 'None' }}
+      span.nyan-player__status-artist {{ currentMusic.artist || '' }}
     .nyan-player__controlbar 
       SIcon(name='skip_previous' @click='() => onPlayControl(-1)')
       SIcon(v-if='displayStatus && displayStatus.paused' name='play_arrow' @click='onResume')
@@ -48,7 +48,9 @@ export default defineComponent({
     isHidePlayList: true,
     isMinimize: false,
     isAutoHidden: false,
+    isAutoPlay: true,
     isSliding: false,
+    history: {}
   }),
   computed: {
     audio() {
@@ -83,18 +85,27 @@ export default defineComponent({
   mounted() {
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
     this.audio.addEventListener('ended', e => this.onPlayControl())
-    this.playMode = Number(localStorage.getItem('nyan_player_playmode'))
-    this.isAutoHidden = Boolean(localStorage.getItem('nyan_player_autohidden'))
-    const index = Number(localStorage.getItem('nyan_player_currentindex'))
-    this.musics && this.musics.length && this.playMusicByIndex(index)
-    // if (music && music.src) {
-    //   this.currentMusic = music
-    //   this.musics[index] = 
-    // } else {
-    //   this.musics && this.musics.length && this.playListControl(0)
-    // }
+    this.history = JSON.parse(localStorage.getItem('nyan_player'))
+    if (this.history) {
+      this.playMode = this.history.playMode || this.PLAYMODE_LIST_LOOP
+      this.isAutoHidden = this.history.isAutoHidden || false
+      this.musics && this.musics.length && this.playMusicByIndex(this.history.currentIndex)
+      if (this.history.currentTime && !isNaN(this.history.currentTime))
+        this.audio.currentTime = this.history.currentTime
+    } else {
+      this.musics && this.musics.length && this.playListControl(0)
+    }
+  },
+  beforeDestroy() {
+    this.saveConfig({
+      lastPlayProgress: this.sliderValue
+    })
   },
   methods: {
+    saveConfig(obj) {
+      this.history = { ...this.history, ...obj }
+      localStorage.setItem('nyan_player', JSON.stringify(this.history))
+    },
     playListControl(skip, musics = this.musics) {
       const currentIndex = musics.findIndex(item => item.uuid == this.currentMusic.uuid);
       const index = currentIndex < 0 ? 0 : currentIndex + skip
@@ -104,10 +115,10 @@ export default defineComponent({
     playMusicByIndex(index, musics = this.musics) {
       this.currentMusic = musics[index]
       this.audio.play()
-      localStorage.setItem('nyan_player_currentindex', index)
 
-      const domIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
-      this.$refs.playlist.children[domIndex].scrollIntoView({ behavior: "smooth" })
+      const realIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
+      this.saveConfig({ currentIndex: realIndex })
+      this.$refs.playlist.children[realIndex].scrollIntoView({ behavior: "smooth", block: 'center'})
     },
     onSlidingStart() {
       this.isSliding = true
@@ -125,10 +136,13 @@ export default defineComponent({
           paused: e.target.paused,
         }
       }
+      this.saveConfig({...this.displayStatus })
     },
     onAutoHiddenSwitch() {
       this.isAutoHidden = !this.isAutoHidden
-      localStorage.setItem('nyan_player_autohidden', this.isAutoHidden)
+      this.saveConfig({
+        isAutoHidden: this.isAutoHidden
+      })
     },
     onPlayListSwitch() {
       this.isHidePlayList = !this.isHidePlayList
@@ -145,7 +159,7 @@ export default defineComponent({
           this.playMode = this.PLAYMODE_LIST_LOOP
           break
       }
-      localStorage.setItem('nyan_player_playmode', this.playMode)
+      this.saveConfig({ playMode: this.playMode })
     },
     onPlayControl(skip = 1) {
       switch (this.playMode) {
