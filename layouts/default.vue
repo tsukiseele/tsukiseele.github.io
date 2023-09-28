@@ -21,8 +21,6 @@
     //- 页脚
     TheFooter#footer
     //- 播放器
-    //- ClientOnly
-    //-   TheAPlayer(v-if="musics && musics.length" :musics="musics")
     ClientOnly
       TheNyanPlayer(v-if="musics && musics.length" :musics="musics")
     //- 返回顶部
@@ -33,7 +31,6 @@
 import _ from 'lodash'
 import { mapState, mapStores } from 'pinia'
 import { useMainStore } from '@/stores/index'
-import SiteConfig from '@/config'
 
 export default {
   data: () => ({
@@ -41,7 +38,6 @@ export default {
     windowWidth: 0,
     onScroll: null,
     onResize: null,
-    $cfg: SiteConfig
   }),
   computed: {
     ...mapState(useMainStore, ['navigation', 'isMobile', 'scroll']),
