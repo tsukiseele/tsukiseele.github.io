@@ -40,6 +40,7 @@ export default defineComponent({
   mounted() {
     document.addEventListener('mousemove', this.onMouseMove)
     document.addEventListener('mouseup', this.onMouseUp)
+    this.$refs.slider.addEventListener('resize', () => this.setPosition(this.mValue))
   },
   beforeDestroy() {
     document.removeEventListener('mousemove', this.onMouseMove)

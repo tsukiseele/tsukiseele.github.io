@@ -229,7 +229,7 @@ i {
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
-  max-width: 28rem;
+  max-width: 400px;
   width: 100%;
   height: var(--min-size);
   transition: var(--animation-expand);
