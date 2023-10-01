@@ -11,7 +11,7 @@ i {
   --minilize-btn-bg: hsla(0, 0%, 95%, 1);
   --max-height-playlist: 16rem;
   // --animation-expand: .25s cubic-bezier(0.075, 0.82, 0.165, 1);
-  --animation-expand: .25s ease;
+  --animation-expand: .2s ease;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -141,8 +141,8 @@ i {
 
 .nyan-player__audio {
   display: none;
-
 }
+
 
 .nyan-player__status-title {
   font-size: .875rem;
@@ -252,6 +252,36 @@ i {
         font-size: 1.125rem;
       }
     }
+  }
+}
+
+.nyan-player__volume-control {
+  position: relative;
+  &:hover {
+    .volume-slider {
+      opacity: 1;
+      pointer-events: all;
+      transition: var(--animation-expand);
+    }
+  }
+
+  .volume-slider {
+    position: absolute;
+    height: 5rem;
+    width: 1rem;
+    left: 0;
+    bottom: 100%;
+    // left: 50%;
+    // bottom: 50%;
+    // width: 5rem;
+    // padding: .5rem 0;
+    // transform: rotate(270deg) translateY(-50%);
+    // transform-origin: 0 0;
+    background-color: hsla(0, 0%, 100%, .9);
+    box-shadow: 0 0 4px hsla(0, 0%, 75%, .9);
+    z-index: 512;
+    // opacity: 0;
+    // pointer-events: none;
   }
 }
 

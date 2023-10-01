@@ -1,12 +1,13 @@
 <template lang="pug">
 .np-slider(
   ref="slider" 
+  :class="{ vertical }"
   @touchstart.stop.prevent="onTouchStart" 
   @touchmove.stop.prevent="onTouchMove" 
   @touchend.stop.prevent="onTouchEnd"
   @mousedown.stop.prevent="onMouseDown" 
 )
-  .np-slider-progress(:style="{ width: `${ position }px`}" )
+  .np-slider-progress(:style="vertical ? `height: ${ position }px` : `width: ${ position }px`" )
 </template>
 
 <script>
@@ -15,6 +16,10 @@ export default defineComponent({
     value: {
       type: Number,
       default: 0
+    },
+    vertical: {
+      type: Boolean,
+      default: false
     },
   },
   computed: {
@@ -40,7 +45,7 @@ export default defineComponent({
   mounted() {
     document.addEventListener('mousemove', this.onMouseMove)
     document.addEventListener('mouseup', this.onMouseUp)
-    // this.$refs.slider.addEventListener('resize', () => this.setPosition(this.mValue))
+    this.$refs.slider.addEventListener('resize', () => this.setPosition(this.mValue))
   },
   beforeDestroy() {
     document.removeEventListener('mousemove', this.onMouseMove)
@@ -88,23 +93,34 @@ export default defineComponent({
     },
     getSliderRange() {
       const parent = this.$refs.slider
-      const pRect = parent.getBoundingClientRect()
+      const rect = parent.getBoundingClientRect()
       const min = 0;
-      const max = pRect.width;
-      return { min, max, length: max - min }
+      console.log(rect);
+      if (this.vertical) {
+        const max = rect.height;
+        return { min, max, length: max - min }
+      } else {
+        const max = rect.width;
+        return { min, max, length: max - min }
+      }
     },
     updatePosition(e) {
       const parent = this.$refs.slider
       if (e && parent) {
         const rect = parent.getBoundingClientRect()
-        const pos = e.clientX - rect.left
         const range = this.getSliderRange()
-        this.position = pos < range.min ? range.min : pos > range.max ? range.max : pos
-        this.mValue = this.position / range.length
+        if (this.vertical) {
+          const pos = e.clientY - rect.bottom
+          this.position = pos < range.min ? range.min : pos > range.max ? range.max : pos
+          this.mValue = this.position / range.length
+        } else {
+          const pos = e.clientX - rect.left
+          this.position = pos < range.min ? range.min : pos > range.max ? range.max : pos
+          this.mValue = this.position / range.length
+        }
       }
     },
   }
-
 })
 </script>
 
@@ -113,7 +129,10 @@ export default defineComponent({
   position: relative;
   width: 100%;
   height: 1rem;
-  margin: 0 .5rem;
+  cursor: pointer;
+  user-select: none;
+
+
 
   &::before {
     content: '';
@@ -124,6 +143,20 @@ export default defineComponent({
     transform: translateY(-50%);
     height: 1px;
     background-color: hsla(220, 40%, 50%, 1);
+
+  }
+
+  &.vertical {
+
+    height: 100%;
+    width: 1rem;
+
+    &::before {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   .np-slider-progress {
@@ -137,12 +170,28 @@ export default defineComponent({
     &::before {
       content: '';
       position: absolute;
-      right: 0;
       top: 50%;
-      transform: translateY(-50%);
+      right: 0;
       width: 4px;
       height: 8px;
+      transform: translateY(-50%);
       background-color: hsla(220, 80%, 25%, 1);
+    }
+  }
+
+  &.vertical .np-slider-progress {
+    width: 2px;
+    top: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    &::before {
+      top: 100%;
+      left: 50%;
+      width: 8px;
+      height: 4px;
+      transform: translateX(-50%);
     }
   }
 }

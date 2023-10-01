@@ -14,7 +14,10 @@
       SIcon(v-else name='pause' @click='onPause')
       SIcon(name='skip_next' @click='() => onPlayControl(1)')
       .controlbar-right
-        SIcon(:name='isAutoHidden ? `visibility_off` : `visibility`' @click='onAutoHiddenSwitch')
+        .nyan-player__volume-control
+          SIcon(v-if='displayStatus' :name='displayStatus.muted ? `volume_off` : `volume_up`' @click='onVolumeSwitch')
+          .volume-slider
+            NPSlider(v-model:value="volumeValue" vertical)
         SIcon(v-if='playMode == PLAYMODE_SINGLE_LOOP' name='repeat_one' @click='onPlayModeSwitch')
         SIcon(v-else-if='playMode == PLAYMODE_RANDOM' name='shuffle' @click='onPlayModeSwitch')
         SIcon(v-else name='laps' @click='onPlayModeSwitch')
@@ -50,7 +53,8 @@ export default defineComponent({
     isAutoHidden: false,
     isAutoPlay: true,
     isSliding: false,
-    history: {}
+    history: {},
+    volumeValue: 0,
   }),
   computed: {
     audio() {
@@ -80,6 +84,10 @@ export default defineComponent({
         })
       },
       immediate: true
+    },
+    volumeValue(nv, ov) {
+      this.audio.volume = nv
+      console.log(nv);
     }
   },
   mounted() {
@@ -134,9 +142,13 @@ export default defineComponent({
           currentTime: e.target.currentTime,
           duration: e.target.duration,
           paused: e.target.paused,
+          muted: e.target.muted
         }
       }
       this.saveConfig({...this.displayStatus })
+    },
+    onVolumeSwitch() {
+      this.audio.muted = !this.audio.muted
     },
     onAutoHiddenSwitch() {
       this.isAutoHidden = !this.isAutoHidden
