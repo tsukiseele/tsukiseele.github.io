@@ -44,14 +44,16 @@ export default defineComponent({
   position: fixed;
   top: 50%;
   right: 0;
+  padding: .5rem .25rem;
   transform: translateY(-50%);
   writing-mode: vertical-lr;
   letter-spacing: .25rem;
   font-weight: 300;
   font-family: serif;
-  color: hsla(330, 60%, 80%, 1)
-  // left: 50%; 
-  // top: 50%; 
-  // transform: translate(-50%, -50%);
+  color: hsla(330, 60%, 70%, 1);
+  background-color: hsla(330, 0%, 100%, .75);
+  box-shadow: 0 0 8px hsla(330, 0%, 100%, .5);
+  border-radius: 0.5rem;
+  // -webkit-text-stroke: 1px hsla(330, 60%, 80%, 1);
 }
 </style>

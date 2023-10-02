@@ -1,4 +1,5 @@
 <template lang="pug">
+NPLyric.nyan-player__lyric(v-if="displayStatus" :lyrics="lyric" :timestamp="displayStatus.currentTime")
 .nyan-player(:class='{ "nyan-player-mini": isMinimize, "nyan-player-auto-hidden": isAutoHidden && isMinimize}')
   audio.nyan-player__audio(ref='audio' :src='currentMusic.src' :autoplay="isAutoPlay" preload="auto")
   .nyan-player__cover(v-if='currentMusic && currentMusic.pic' @click='displayStatus && isMinimize ? displayStatus.paused ? onResume() : onPause() : 0' :data-playing="displayStatus && !displayStatus.paused")
@@ -35,7 +36,6 @@
       span.playlist-number {{ index + 1 }} 
       span.playlist-name {{ music.title }}
       span.playlist-artist {{ music.artist }}
-  NPLyric.nyan-player__lyric(v-if="displayStatus" :lyrics="lyric" :timestamp="displayStatus.currentTime")
 </template>
 
 <script>
