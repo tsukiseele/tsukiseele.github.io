@@ -166,7 +166,9 @@ export default defineComponent({
     },
     async playMusicByIndex(index, musics = this.musics) {
       this.currentMusic = musics[index]
-      this.audio.play()
+      this.$nextTick(() => {
+        this.audio.play() 
+      })
 
       const realIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
       this.saveConfig({ currentIndex: realIndex })
@@ -174,7 +176,6 @@ export default defineComponent({
 
       if (this.enableLyric) {
         this.lyric = this.parseLyric(await this.fetchLyric(this.currentMusic.id))
-        console.log(this.lyric);
       }
     },
     onSlidingStart() {
