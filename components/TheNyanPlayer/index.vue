@@ -35,17 +35,17 @@
       span.playlist-number {{ index + 1 }} 
       span.playlist-name {{ music.title }}
       span.playlist-artist {{ music.artist }}
+  NPLyric.nyan-player__lyric(v-if="displayStatus" :lyrics="lyric" :timestamp="displayStatus.currentTime")
 </template>
 
 <script>
 import NPSlider from './NPSlider.vue'
+import NPLyric from './NPLyric.vue'
 
 export default defineComponent({
   setup() { return { PLAYMODE_LIST_LOOP: 1, PLAYMODE_SINGLE_LOOP: 2, PLAYMODE_RANDOM: 4 } },
-  props: ['musics'],
-  components: {
-    NPSlider
-  },
+  props: ['musics', 'fetchLyric'],
+  components: { NPSlider, NPLyric },
   data: () => ({
     playMode: 1,
     currentMusic: {},
@@ -53,10 +53,12 @@ export default defineComponent({
     isHidePlayList: true,
     isMinimize: false,
     isAutoHidden: false,
-    isAutoPlay: true,
+    isAutoPlay: false,
     isSliding: false,
     volumeValue: 0,
     config: {},
+    lyric: [],
+    enableLyric: true,
   }),
   computed: {
     audio() {
@@ -114,6 +116,44 @@ export default defineComponent({
     })
   },
   methods: {
+    // lrc (String) - lrc file text
+    parseLyric(lrc) {
+      // will match "[00:00.00] ooooh yeah!"
+      // note: i use named capturing group
+      const regex = /^\[(?<time>\d{2}:\d{2}(.\d{2})?)\](?<text>.*)/;
+
+      // split lrc string to individual lines
+      const lines = lrc.split("\n");
+
+      const output = [];
+
+      lines.forEach(line => {
+        const match = line.match(regex);
+
+        // if doesn't match, return.
+        if (match == null) return;
+
+        const { time, text } = match.groups;
+
+        output.push({
+          time: parseTime(time),
+          text: text.trim()
+        });
+      });
+
+      // parse formated time
+      // "03:24.73" => 204.73 (total time in seconds)
+      function parseTime(time) {
+        const minsec = time.split(":");
+
+        const min = parseInt(minsec[0]) * 60;
+        const sec = parseFloat(minsec[1]);
+
+        return min + sec;
+      }
+
+      return output;
+    },
     saveConfig(obj) {
       this.config = { ...this.config, ...obj }
       localStorage.setItem('nyan_player', JSON.stringify(this.config))
@@ -124,13 +164,18 @@ export default defineComponent({
       const newIndex = index > musics.length - 1 ? 0 : index < 0 ? musics.length - 1 : index;
       this.playMusicByIndex(newIndex, musics)
     },
-    playMusicByIndex(index, musics = this.musics) {
+    async playMusicByIndex(index, musics = this.musics) {
       this.currentMusic = musics[index]
       this.audio.play()
 
       const realIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
       this.saveConfig({ currentIndex: realIndex })
       this.$refs.playlist.children[realIndex].scrollIntoView({ behavior: "smooth", block: 'center' })
+
+      if (this.enableLyric) {
+        this.lyric = this.parseLyric(await this.fetchLyric(this.currentMusic.id))
+        console.log(this.lyric);
+      }
     },
     onSlidingStart() {
       this.isSliding = true

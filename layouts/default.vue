@@ -22,7 +22,7 @@
     TheFooter#footer
     //- 播放器
     ClientOnly
-      TheNyanPlayer(v-if="musics && musics.length" :musics="musics")
+      TheNyanPlayer(v-if="musics && musics.length" :musics="musics" :fetch-lyric="$cfg.musicLyricRequestMethod")
     //- 返回顶部
     //- TheBackTop
 </template>

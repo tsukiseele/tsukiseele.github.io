@@ -5,21 +5,28 @@ export default {
   musicAPI: 'https://api.hlo.li/playlist/detail?id=7490559834',
 
   musicRequestMethod: async () => {
-    try {             
+    try {
       const playlistId = '7490559834'
       const response = await (await fetch(
-        `https://api.hlo.li/playlist/detail?id=${playlistId}`, { method: 'GET', mode: 'cors' })).json()
-      if (response.code == 200) {
-        const result = await (await fetch(
-          `https://api.hlo.li/song/detail?ids=${response.playlist.trackIds.map(item => item.id).join(',')}`)).json()
-        return result.songs.map((item) => ({
-          id: item.id,
-          title: item.name,
-          artist: item.ar.map((item) => item.name).toString(),
-          pic: item.al.picUrl ? item.al.picUrl.replace('http://', 'https://') : '',
-          src: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
-        }))
-      }
+        `https://api.hlo.li/playlist/detail?id=${playlistId}`/*, { method: 'GET', mode: 'cors' }*/)).json()
+      const result = await (await fetch(
+        `https://api.hlo.li/song/detail?ids=${response.playlist.trackIds.map(item => item.id).join(',')}`)).json()
+      return result.songs.map((item) => ({
+        id: item.id,
+        title: item.name,
+        artist: item.ar.map((item) => item.name).toString(),
+        pic: item.al.picUrl ? item.al.picUrl.replace('http://', 'https://') : '',
+        src: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
+      }))
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  musicLyricRequestMethod: async (id) => {
+    try {
+      const response = await (await fetch(
+        `https://api.hlo.li/lyric?id=${id}`/*, { method: 'GET', mode: 'cors' }*/)).json()
+      return response.lrc.lyric
     } catch (e) {
       console.log(e)
     }
