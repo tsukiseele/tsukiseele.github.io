@@ -53,8 +53,8 @@ export default defineComponent({
     isAutoHidden: false,
     isAutoPlay: true,
     isSliding: false,
-    history: {},
     volumeValue: 0,
+    config: {},
   }),
   computed: {
     audio() {
@@ -86,21 +86,22 @@ export default defineComponent({
       immediate: true
     },
     volumeValue(nv, ov) {
-      if (this.audio.muted)
-        this.audio.muted = false
+      this.audio.muted && (this.audio.muted = false)
       this.audio.volume = nv
+      this.saveConfig({ volume: nv })
     }
   },
   mounted() {
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
     this.audio.addEventListener('ended', e => this.onPlayControl())
-    this.history = JSON.parse(localStorage.getItem('nyan_player'))
-    if (this.history) {
-      this.playMode = this.history.playMode || this.PLAYMODE_LIST_LOOP
-      this.isAutoHidden = this.history.isAutoHidden || false
-      this.musics && this.musics.length && this.playMusicByIndex(this.history.currentIndex)
-      if (this.history.currentTime && !isNaN(this.history.currentTime))
-        this.audio.currentTime = this.history.currentTime
+    this.config = JSON.parse(localStorage.getItem('nyan_player'))
+    if (this.config) {
+      this.playMode = this.config.playMode || this.PLAYMODE_LIST_LOOP
+      this.isAutoHidden = this.config.isAutoHidden || false
+      this.musics && this.musics.length && this.playMusicByIndex(this.config.currentIndex)
+      this.volumeValue = this.config.volume || .5
+      if (this.config.currentTime && !isNaN(this.config.currentTime))
+        this.audio.currentTime = this.config.currentTime
     } else {
       this.musics && this.musics.length && this.playListControl(0)
     }
@@ -112,8 +113,8 @@ export default defineComponent({
   },
   methods: {
     saveConfig(obj) {
-      this.history = { ...this.history, ...obj }
-      localStorage.setItem('nyan_player', JSON.stringify(this.history))
+      this.config = { ...this.config, ...obj }
+      localStorage.setItem('nyan_player', JSON.stringify(this.config))
     },
     playListControl(skip, musics = this.musics) {
       const currentIndex = musics.findIndex(item => item.uuid == this.currentMusic.uuid);
@@ -127,7 +128,7 @@ export default defineComponent({
 
       const realIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
       this.saveConfig({ currentIndex: realIndex })
-      this.$refs.playlist.children[realIndex].scrollIntoView({ behavior: "smooth", block: 'center'})
+      this.$refs.playlist.children[realIndex].scrollIntoView({ behavior: "smooth", block: 'center' })
     },
     onSlidingStart() {
       this.isSliding = true
@@ -146,7 +147,7 @@ export default defineComponent({
           muted: e.target.muted
         }
       }
-      this.saveConfig({...this.displayStatus })
+      this.saveConfig({ ...this.displayStatus })
     },
     onVolumeSwitch() {
       this.audio.muted = !this.audio.muted
