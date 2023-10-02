@@ -6,18 +6,17 @@
         img.assess-count(src="https://count.getloli.com/get/@nlo.li?theme=rule34" alt="counter")
       p © {{ new Date().getFullYear() }} by 
         a.info--theme(href="/") {{ $cfg.nav.title }} 
-        | All Rights Reserved.
+        |  All Rights Reserved.
       p Designed by 
         a.info--developer(href="https://github.com/tsukiseele" target="_blank") TsukiSeele
-        |.
+      
         span.info--spacer |
         | Powered by 
         a.info--nuxtjs(href="https://nuxtjs.org/" target="_blank") Nuxt3
-        |.
         span.info--spacer |
         |Theme 
         a.info--color-secondary(href="https://github.com/tsukiseele/HSL" target="_blank") Tirsk
-        |.
+        
 </template>
 
 <script>

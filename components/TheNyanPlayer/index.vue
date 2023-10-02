@@ -14,7 +14,7 @@
       SIcon(v-else name='pause' @click='onPause')
       SIcon(name='skip_next' @click='() => onPlayControl(1)')
       .controlbar-right
-        .nyan-player__volume-control
+        span.nyan-player__volume-control
           SIcon(v-if='displayStatus' :name='displayStatus.muted ? `volume_off` : `volume_up`' @click='onVolumeSwitch')
           .volume-slider
             NPSlider(v-model:value="volumeValue" vertical)
@@ -86,8 +86,9 @@ export default defineComponent({
       immediate: true
     },
     volumeValue(nv, ov) {
+      if (this.audio.muted)
+        this.audio.muted = false
       this.audio.volume = nv
-      console.log(nv);
     }
   },
   mounted() {

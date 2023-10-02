@@ -88,7 +88,10 @@ i {
       line-height: 2rem;
       transition: .25s ease;
       display: flex;
-      border-bottom: 1px solid hsla(0, 0%, 95%, 1);
+      // border-bottom: 1px solid hsla(0, 0%, 95%, 1);
+      &:nth-of-type(2n-1) {
+        background-color: hsla(220, 20%, 97.5%, 1);
+      }
 
       &:hover {
         background-color: #eee;
@@ -249,7 +252,10 @@ i {
 
       i {
         color: hsla(0, 0%, 25%, 1);
-        font-size: 1.125rem;
+        font-size: 1rem;
+        &:hover {
+          color: hsla(200, 80%, 20%, 1);
+        }
       }
     }
   }
@@ -257,7 +263,9 @@ i {
 
 .nyan-player__volume-control {
   position: relative;
-  &:hover {
+  display: flex;
+  align-items: center;
+  &:hover, &:active {
     .volume-slider {
       opacity: 1;
       pointer-events: all;
@@ -267,21 +275,31 @@ i {
 
   .volume-slider {
     position: absolute;
-    height: 5rem;
-    width: 1rem;
-    left: 0;
-    bottom: 100%;
-    // left: 50%;
-    // bottom: 50%;
-    // width: 5rem;
-    // padding: .5rem 0;
-    // transform: rotate(270deg) translateY(-50%);
-    // transform-origin: 0 0;
-    background-color: hsla(0, 0%, 100%, .9);
+    width: 1.5rem;
+    height: 6rem;
+    left: 50%;
+    bottom: calc(100% + .5rem);
+    padding: .5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+    background-color: hsla(0, 0%, 95%, .95);
     box-shadow: 0 0 4px hsla(0, 0%, 75%, .9);
     z-index: 512;
-    // opacity: 0;
-    // pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      border-style: solid;
+      border-width: .5rem .5rem 0 .5rem;
+      border-color: hsla(0, 0%, 95%, .95) transparent transparent transparent;
+    }
   }
 }
 
