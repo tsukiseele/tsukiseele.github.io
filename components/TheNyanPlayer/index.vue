@@ -9,15 +9,17 @@
     .nyan-player__status-title {{ currentMusic.title || 'None' }}
       span.nyan-player__status-artist {{ currentMusic.artist || '' }}
     .nyan-player__controlbar 
-      SIcon(name='skip_previous' @click='() => onPlayControl(-1)')
-      SIcon(v-if='displayStatus && displayStatus.paused' name='play_arrow' @click='onResume')
-      SIcon(v-else name='pause' @click='onPause')
-      SIcon(name='skip_next' @click='() => onPlayControl(1)')
+      .controlbar-left
+        SIcon(name='skip_previous' @click='() => onPlayControl(-1)')
+        SIcon(v-if='displayStatus && displayStatus.paused' name='play_arrow' @click='onResume')
+        SIcon(v-else name='pause' @click='onPause')
+        SIcon(name='skip_next' @click='() => onPlayControl(1)')
       .controlbar-right
         span.nyan-player__volume-control
           SIcon(v-if='displayStatus' :name='displayStatus.muted ? `volume_off` : `volume_up`' @click='onVolumeSwitch')
           .volume-slider
             NPSlider(v-model:value="volumeValue" vertical)
+        SIcon(:name='isAutoHidden ? `visibility_off` : `visibility`' @click='onAutoHiddenSwitch')
         SIcon(v-if='playMode == PLAYMODE_SINGLE_LOOP' name='repeat_one' @click='onPlayModeSwitch')
         SIcon(v-else-if='playMode == PLAYMODE_RANDOM' name='shuffle' @click='onPlayModeSwitch')
         SIcon(v-else name='laps' @click='onPlayModeSwitch')
