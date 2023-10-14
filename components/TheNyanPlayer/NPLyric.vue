@@ -9,10 +9,8 @@ export default defineComponent({
   methods: {
     getCurrentLyricLine(lyrics, timestamp) {
       if (!lyrics) return
-      console.log(lyrics);
       const index =  this.syncLyric(lyrics, timestamp)
-      const currentLrc = lyrics[index] ? lyrics[index].text : ''
-      return currentLrc
+      return lyrics[index] ? lyrics[index].text : ''
     },
     // lyrics (Array) - output from parseLyric function
     // time (Number) - current time from audio player
