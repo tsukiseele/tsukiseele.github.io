@@ -102,8 +102,9 @@ export default defineComponent({
     if (this.config) {
       this.playMode = this.config.playMode || this.PLAYMODE_LIST_LOOP
       this.isAutoHidden = this.config.isAutoHidden || false
-      this.musics && this.musics.length && this.playMusicByIndex(this.config.currentIndex)
+      this.musics && this.musics.length && this.playMusicByIndex(this.config.currentIndex, this.musics, !this.config.paused)
       this.volumeValue = this.config.volume || .5
+      // if (this.config.paused) this.$nextTick(() => this.audio.pause())
       if (this.config.currentTime && !isNaN(this.config.currentTime))
         this.audio.currentTime = this.config.currentTime
     } else {
@@ -164,11 +165,9 @@ export default defineComponent({
       const newIndex = index > musics.length - 1 ? 0 : index < 0 ? musics.length - 1 : index;
       this.playMusicByIndex(newIndex, musics)
     },
-    async playMusicByIndex(index, musics = this.musics) {
+    async playMusicByIndex(index, musics = this.musics, isAutoPlay = true) {
       this.currentMusic = musics[index]
-      this.$nextTick(() => {
-        this.audio.play() 
-      })
+      if (isAutoPlay) this.$nextTick(() => this.audio.play())
 
       const realIndex = this.musics.findIndex(item => item.uuid == this.currentMusic.uuid)
       this.saveConfig({ currentIndex: realIndex })
@@ -238,9 +237,15 @@ export default defineComponent({
     },
     onPause() {
       this.audio.pause()
+      this.saveConfig({
+        paused: true
+      })
     },
     onResume() {
       this.audio.play()
+      this.saveConfig({
+        paused: false
+      })
     },
     onStatusSwitch() {
       this.isMinimize = !this.isMinimize

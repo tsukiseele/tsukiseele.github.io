@@ -43,12 +43,14 @@ export default defineComponent({
   top: 50%;
   right: 0;
   padding: .5rem .25rem;
+  transition: .25s ease;
   transform: translateY(-50%);
   writing-mode: vertical-lr;
   letter-spacing: .25rem;
+  font-size: 1.25rem;
+  font-family: '仿宋', serif;
   font-weight: 300;
-  font-family: serif;
-  color: hsla(330, 60%, 70%, 1);
+  color: hsla(330, 80%, 60%, 1);
   background-color: hsla(330, 0%, 100%, .75);
   box-shadow: 0 0 8px hsla(330, 0%, 100%, .5);
   border-radius: 0.5rem;
