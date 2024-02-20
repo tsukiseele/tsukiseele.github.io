@@ -1,5 +1,5 @@
 <template lang="pug">
-NPLyric.nyan-player__lyric(v-if="displayStatus" :lyrics="lyric" :timestamp="displayStatus.currentTime")
+NPLyric.nyan-player__lyric(v-if="displayStatus && enableLyric" :lyrics="lyric" :timestamp="displayStatus.currentTime")
 .nyan-player(:class='{ "nyan-player-mini": isMinimize, "nyan-player-auto-hidden": isAutoHidden && isMinimize}')
   audio.nyan-player__audio(ref='audio' :src='currentMusic.src' :autoplay="isAutoPlay" preload="auto")
   .nyan-player__cover(v-if='currentMusic && currentMusic.pic' @click='displayStatus && isMinimize ? displayStatus.paused ? onResume() : onPause() : 0' :data-playing="displayStatus && !displayStatus.paused")
@@ -119,9 +119,9 @@ export default defineComponent({
   methods: {
     // lrc (String) - lrc file text
     parseLyric(lrc) {
-      // will match "[00:00.00] ooooh yeah!"
+      // will match "[00:00.000] ooooh yeah!"
       // note: i use named capturing group
-      const regex = /^\[(?<time>\d{2}:\d{2}(.\d{2})?)\](?<text>.*)/;
+      const regex = /^\[(?<time>\d+?:\d+?(.\d+?)?)\](?<text>.*)/;
 
       // split lrc string to individual lines
       const lines = lrc.split("\n");
@@ -174,7 +174,11 @@ export default defineComponent({
       this.$refs.playlist.children[realIndex].scrollIntoView({ behavior: "smooth", block: 'center' })
 
       if (this.enableLyric) {
-        this.lyric = this.parseLyric(await this.fetchLyric(this.currentMusic.id))
+        this.lyric = null
+        const lrcResp = await this.fetchLyric(this.currentMusic.id)
+        const parsedLrc = this.parseLyric(lrcResp)
+        this.lyric = parsedLrc
+        console.log(lrcResp, parsedLrc)
       }
     },
     onSlidingStart() {

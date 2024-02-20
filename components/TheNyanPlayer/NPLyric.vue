@@ -1,5 +1,5 @@
 <template lang="pug">
-.np-lyric {{ getCurrentLyricLine(lyrics, timestamp) }}
+.np-lyric(v-if="lyrics && lyrics.length") {{ getCurrentLyricLine(lyrics, timestamp) }}
 
 </template>
 
