@@ -1,17 +1,20 @@
 <template lang="pug">
-.np-lyric(v-if="lyrics && lyrics.length") {{ getCurrentLyricLine(lyrics, timestamp) }}
+.np-lyric(v-if="lyrics && lyrics.length && currentLyricLine") {{ currentLyricLine }}
 
 </template>
 
 <script>
 export default defineComponent({
   props: ['lyrics', 'timestamp'],
+  computed: {
+    // 这里的 computed 相较于 methods 而言存在约 1/4s 的延迟
+    currentLyricLine() {
+      if (!this.lyrics) return
+      const index =  this.syncLyric(this.lyrics, this.timestamp)
+      return this.lyrics[index] ? this.lyrics[index].text : ''
+    }
+  },
   methods: {
-    getCurrentLyricLine(lyrics, timestamp) {
-      if (!lyrics) return
-      const index =  this.syncLyric(lyrics, timestamp)
-      return lyrics[index] ? lyrics[index].text : ''
-    },
     // lyrics (Array) - output from parseLyric function
     // time (Number) - current time from audio player
     syncLyric(lyrics, time) {
