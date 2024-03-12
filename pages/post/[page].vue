@@ -1,7 +1,7 @@
 <template lang="pug">
 #content
   main#main
-    .aside
+    //- .aside
       TheInfoCard.aside-static(:icon='avatar')
       //- .aside-static
         .aside-decorate.card

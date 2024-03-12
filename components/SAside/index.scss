@@ -1,4 +1,4 @@
-#content {
+.s-aside {
   --top-bottom-d-color: #4a3f55;
   --title-color: #cd5da0;
   --subtitle-color: #{scale-color(#cd5da0, $alpha: -20%)};
@@ -16,8 +16,6 @@
   --home-link-background-color1: #c7b3d6;
   --home-link-background-color2: #b7d7b6;
   --home-link-background-color3: #81c8c0;
-  max-width: 320px;
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -811,7 +809,7 @@
 }
 
 .decorate-border {
-  position: fixed;
+  position: absolute;
 
   left: 0;
   top: 0;

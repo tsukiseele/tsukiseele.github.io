@@ -1,28 +1,30 @@
 <template lang="pug">
 #hsl
-  #background(:data-theme-background="$cfg.backgroundTheme")
+  #background(:data-theme-background='$cfg.backgroundTheme')
     .decorate
       .decorate-item
       .decorate-item
-  #app(:class="{ full: isFull }")
-    TheNav(
-      :title='navigation.title',
-      :subtitle='navigation.subtitle',
-      :nav='navigation.nav',
-      :links='navigation.links',
-      :drawerBannerBackground='navigation.drawerBannerBackground',
-      :isMobile='isMobile',
-      :isFull='isFull',
-      :isTransparent='isTransparentNav',
-      :isHide='isHideNav',
-    )
+  #app(:class='{ full: isFull }')
+    //- TheNav(
+    //-   :title='navigation.title',
+    //-   :subtitle='navigation.subtitle',
+    //-   :nav='navigation.nav',
+    //-   :links='navigation.links',
+    //-   :drawerBannerBackground='navigation.drawerBannerBackground',
+    //-   :isMobile='isMobile',
+    //-   :isFull='isFull',
+    //-   :isTransparent='isTransparentNav',
+    //-   :isHide='isHideNav',
+    //- )
     main#main
-      slot
+      SAside
+      #content
+        slot
     //- 页脚
-    TheFooter#footer
+    //- TheFooter#footer
     //- 播放器
     ClientOnly
-      TheNyanPlayer(v-if="musics && musics.length" :musics="musics" :fetch-lyric="$cfg.musicLyricRequestMethod")
+      TheNyanPlayer(v-if='musics && musics.length', :musics='musics', :fetch-lyric='$cfg.musicLyricRequestMethod')
     //- 返回顶部
     //- TheBackTop
 </template>
@@ -55,14 +57,14 @@ export default {
   watch: {
     windowWidth(newVal) {
       useMainStore().$patch({
-        clientWidth: newVal
+        clientWidth: newVal,
       })
     },
     scroll(nv, ov) {
       const root = document.querySelector(':root')
       if (!root) return
-      root.style.setProperty('--nav-height', nv.pos > 32 ? '3rem' : '4rem');
-    }
+      root.style.setProperty('--nav-height', nv.pos > 32 ? '3rem' : '4rem')
+    },
   },
   methods: {
     /**
@@ -82,7 +84,7 @@ export default {
           // }))
 
           // NEW
-          this.musics = await (await fetch(`/song/detail?ids=347230,347231`))
+          this.musics = await await fetch(`/song/detail?ids=347230,347231`)
           // OLD
           this.musics = result.playlist.tracks.map((item) => ({
             id: item.id,
@@ -92,7 +94,7 @@ export default {
             src: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
             // lrc: `https://api.hlo.li/music/lyric?id=${item.id}`
           }))
-          console.log(this.musics);
+          console.log(this.musics)
         }
       } catch (e) {
         console.log(e)
@@ -132,6 +134,58 @@ export default {
 <style lang="scss" scoped>
 $mobile: 800px;
 
+@media screen and (max-width: $mobile) {
+  #app {
+    overflow-x: hidden;
+  }
+}
+
+#app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+#main {
+  
+  flex: 1;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  // margin-top: var(--nav-height);
+  // width: 1120px;
+  // width: calc(100% - 480px);
+  .s-aside {
+    flex: 0 0 33%;
+  
+  }
+  #content {
+    overflow: auto;
+    max-height: 100vh;
+  padding: 5rem;
+  }
+}
+
+.full {
+  #footer {
+    display: none;
+  }
+
+  #main {
+    margin-top: 0;
+  }
+}
+
+// @media screen and (max-width: calc(1080px + 2rem)) {
+@media screen and (max-width: 1120px) {
+  main#main {
+    width: 100%;
+  }
+}
 #hsl {
   #background {
     position: fixed;
@@ -151,9 +205,8 @@ $mobile: 800px;
       top: 0;
       right: 0;
       bottom: 0;
-
       background-color: white;
-      opacity: .1;
+      opacity: 0.1;
     }
 
     .decorate {
@@ -183,48 +236,6 @@ $mobile: 800px;
         overflow: hidden;
       }
     }
-  }
-}
-
-@media screen and (max-width: $mobile) {
-  #app {
-    overflow-x: hidden;
-  }
-}
-
-#app {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  z-index: 1;
-}
-
-#main {
-  flex: 1;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  margin-top: var(--nav-height);
-  width: 1120px;
-  // width: calc(100% - 480px);
-}
-
-.full {
-  #footer {
-    display: none;
-  }
-
-  #main {
-    margin-top: 0;
-  }
-}
-
-// @media screen and (max-width: calc(1080px + 2rem)) {
-@media screen and (max-width: 1120px) {
-  main#main {
-    width: 100%;
   }
 }
 </style>

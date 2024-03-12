@@ -66,7 +66,7 @@ export default {
 
 .error-code {
   color: var(--color-primary);
-  font-family: var(--font-coquettec);
+  // font-family: var(--font-coquettec);
   font-size: 6rem;
   text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.12);
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
 NPLyric.nyan-player__lyric(v-if="displayStatus && enableLyric" :lyrics="lyric" :timestamp="displayStatus.currentTime")
-.nyan-player(:class='{ "nyan-player-mini": isMinimize, "nyan-player-auto-hidden": isAutoHidden && isMinimize}')
+.nyan-player(:class='{ "nyan-player-mini": isMinimize, "nyan-player-auto-hidden": isAutoHidden && isMinimize, "nyan-player--playlist-hidden": isHidePlayList || isMinimize }')
   audio.nyan-player__audio(ref='audio' :src='currentMusic.src' :autoplay="isAutoPlay" preload="auto")
   .nyan-player__cover(v-if='currentMusic && currentMusic.pic' @click='displayStatus && isMinimize ? displayStatus.paused ? onResume() : onPause() : 0' :data-playing="displayStatus && !displayStatus.paused")
     img.nyan-player__cover(:src='currentMusic.pic' alt='')
@@ -31,7 +31,7 @@ NPLyric.nyan-player__lyric(v-if="displayStatus && enableLyric" :lyrics="lyric" :
   .nyan-player__mini-switch(@click='onStatusSwitch')
     SIcon(v-if='isMinimize' name='chevron_right')
     SIcon(v-else name='chevron_left')
-  ul.nyan-player__playlist(ref='playlist' :class='{ hidden: isHidePlayList || isMinimize }')
+  ul.nyan-player__playlist(ref='playlist')
     li(v-for='(music, index) in musics' @click='playMusicByIndex(index)' :class='{ active: currentMusic.uuid == music.uuid }') 
       span.playlist-number {{ index + 1 }} 
       span.playlist-name {{ music.title }}
