@@ -150,23 +150,23 @@ $mobile: 800px;
 }
 
 #main {
-  
   flex: 1;
-  align-self: center;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-items: flex-start;
   // margin-top: var(--nav-height);
   // width: 1120px;
   // width: calc(100% - 480px);
   .s-aside {
     flex: 0 0 33%;
-  
   }
   #content {
     overflow: auto;
     max-height: 100vh;
-  padding: 5rem;
+    width: 100%;
+    flex: 1;
+    padding: 5rem;
   }
 }
 

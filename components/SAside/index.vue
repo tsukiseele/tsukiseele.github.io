@@ -1,23 +1,29 @@
 <template lang="pug">
 .s-aside
-  .title(data-aos="fade-down" data-aos-delay="300") {{ navigation.title }}
+  .title {{ navigation.title }}
   //- .title
-  //- span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
-  //-   .letter(:class="char")
+    span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
+      .letter(:class="char")
   //-  {{ navigation.title }}
-  .subtitle(data-aos="fade-down" data-aos-delay="300") {{ navigation.subtitle }}
+  .subtitle {{ navigation.subtitle }}
 
   //- div.introduction(data-aos="fade-right" data-aos-delay="600")
     .blockquote
       SIcon(name='quote').quote-left
       .quote-content(v-text="hitokoto.content" :data-from="hitokoto.from")
       SIcon(name='quote').quote-right
-  nav.nav
+  //- nav.nav
     ul.nav-menu
       li.nav-item(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
         SIcon(:name='item.icon')
         .nav-name {{ item.name }}
         .nav-underline
+  nav.nav
+    ul.nav-blocks
+      li.nav-block(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
+        SIcon(:name='item.icon')
+        //- .nav-name {{ item.name }}
+        //- .nav-underline
   ul.nav-links
     li.nav-link-item(v-for='item in navigation.links', :key='item.name')
       .item__bg

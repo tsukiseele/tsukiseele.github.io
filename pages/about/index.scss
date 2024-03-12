@@ -174,3 +174,30 @@
     margin-bottom: 1rem;
   }
 }
+
+
+/*
+
+  --cut-size: 2rem;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--cut-size) * 2.5);
+    border-bottom: .25rem dashed hsla(330, 30%, 80%, 1);
+    border-radius: .5rem;
+  }
+  &::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+    top: calc(var(--cut-size) * 0.707);
+    left: calc(var(--cut-size) * 0.707);
+  }
+  &::after {
+    transform: translate(50%, 50%) rotate(-45deg);
+    bottom: calc(var(--cut-size) * 0.707);
+    right: calc(var(--cut-size) * 0.707);
+  }
+    clip-path: polygon(var(--cut-size) 0, 100% 0, 100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%, 0 100%, 0 var(--cut-size));
+  
+  */

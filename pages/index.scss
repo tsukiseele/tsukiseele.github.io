@@ -16,14 +16,15 @@
   --home-link-background-color1: #c7b3d6;
   --home-link-background-color2: #b7d7b6;
   --home-link-background-color3: #81c8c0;
-  max-width: 320px;
+  // max-width: 320px;
 
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  width: 100%;
 
   // &::before,
   // &::after {

@@ -51,7 +51,7 @@ export default defineComponent({
     currentMusic: {},
     displayStatus: null,
     isHidePlayList: true,
-    isMinimize: false,
+    isMinimize: true,
     isAutoHidden: false,
     isAutoPlay: false,
     isSliding: false,
@@ -101,7 +101,7 @@ export default defineComponent({
     this.config = JSON.parse(localStorage.getItem('nyan_player'))
     if (this.config) {
       this.playMode = this.config.playMode || this.PLAYMODE_LIST_LOOP
-      this.isAutoHidden = this.config.isAutoHidden || false
+      this.isAutoHidden = this.isMinimize = this.config.isAutoHidden || false
       this.musics && this.musics.length && this.playMusicByIndex(this.config.currentIndex, this.musics, !this.config.paused)
       this.volumeValue = this.config.volume || .5
       // if (this.config.paused) this.$nextTick(() => this.audio.pause())

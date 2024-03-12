@@ -24,8 +24,9 @@
           :description='item.description',
           :category='item.category',
           :to='`/archives/${item.id || ""}`',
-          data-aos='fade-up' 
         )
+        
+          //- data-aos='fade-up' 
 
       SPagination.pagination(:current='archive.page' :total='archive.totalCount' :size="$cfg.blog.paginationSize" :length="length"  @change='onChange' :loading='isLoading')
 </template>

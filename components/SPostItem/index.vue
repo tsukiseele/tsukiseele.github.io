@@ -1,19 +1,20 @@
 <template lang="pug">
 .post-item(@click="$router.push(to)" :style="backgroundColor")
-  .item-cover-box(v-if="cover")
-    SImage.item-cover(:src="cover")
-  .item-info 
-    .item-title {{ title }}
-    span.item-preview {{ description }}
-    ul.item-labels
-      li.item-label
-        SChip(:text="$util.formatTimeAgo(date)", icon="event_note")
-      li.item-label(v-for="(label, i) in labels", :key="i")
-        SChip(:text="label.name", icon="sell")
-  //- .item-category 
-    //- i.category-icon.material-icons bookmark
-    SIcon(name=)
-    span.category-text {{ category ? category.title : '未分类' }}
+  .post-item-inner 
+    .item-cover-box(v-if="cover")
+      SImage.item-cover(:src="cover")
+    .item-info 
+      .item-title {{ title }}
+      span.item-preview {{ description }}
+      //- ul.item-labels
+        li.item-label
+          SChip(:text="$util.formatTimeAgo(date)", icon="event_note")
+        li.item-label(v-for="(label, i) in labels", :key="i")
+          SChip(:text="label.name", icon="sell")
+    //- .item-category 
+      //- i.category-icon.material-icons bookmark
+      SIcon(name=)
+      span.category-text {{ category ? category.title : '未分类' }}
 </template>
 
 <script>
