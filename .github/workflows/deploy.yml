@@ -3,7 +3,7 @@ name: Deploy Nuxt site to Pages
 on:
   push:
     branches:
-      - alpha
+      - beta
 permissions:
   contents: write
 jobs:
