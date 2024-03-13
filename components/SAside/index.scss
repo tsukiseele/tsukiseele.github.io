@@ -16,12 +16,7 @@
   --home-link-background-color1: #c7b3d6;
   --home-link-background-color2: #b7d7b6;
   --home-link-background-color3: #81c8c0;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+
 
   .title {
     font-family: var(--font-serif);
@@ -741,6 +736,7 @@
   right: 0;
   top: 67%;
   transform: translateY(-50%);
+  z-index: 10;
 
   .nav-external-links {
     width: 3rem;
