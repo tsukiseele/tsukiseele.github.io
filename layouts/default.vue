@@ -18,7 +18,6 @@
     //- )
     main#main
       SAside
-      #content
         slot
     //- 页脚
     //- TheFooter#footer
@@ -151,23 +150,24 @@ $mobile: 800px;
 
 #main {
   flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: flex-start;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-items: flex-start;
+  align-self: stretch;
   // margin-top: var(--nav-height);
   // width: 1120px;
   // width: calc(100% - 480px);
-  .s-aside {
-    flex: 0 0 33%;
-  }
-  #content {
-    overflow: auto;
-    max-height: 100vh;
-    width: 100%;
-    flex: 1;
-    padding: 5rem;
-  }
+  // .s-aside {
+  //   flex: 0 0 33%;
+  // }
+  // #content {
+  //   overflow: auto;
+  //   max-height: 100vh;
+  //   width: 100%;
+  //   flex: 1;
+  //   padding: 5rem;
+  // }
 }
 
 .full {
@@ -182,9 +182,7 @@ $mobile: 800px;
 
 // @media screen and (max-width: calc(1080px + 2rem)) {
 @media screen and (max-width: 1120px) {
-  main#main {
-    width: 100%;
-  }
+  
 }
 #hsl {
   #background {

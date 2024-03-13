@@ -1,63 +1,46 @@
 <template lang="pug">
-.s-aside
-  .title {{ navigation.title }}
-  //- .title
-    span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
-      .letter(:class="char")
-  //-  {{ navigation.title }}
-  .subtitle {{ navigation.subtitle }}
+.s-aside(:class="{'show-menu': showMenu}")
+  .menu-btn(@click="showMenu = !showMenu")
+    SIcon(name='github')
+  .left
+    .title {{ navigation.title }}
+    //- .title
+      span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
+        .letter(:class="char")
+    //-  {{ navigation.title }}
+    .subtitle {{ navigation.subtitle }}
 
-  //- div.introduction(data-aos="fade-right" data-aos-delay="600")
-    .blockquote
-      SIcon(name='quote').quote-left
-      .quote-content(v-text="hitokoto.content" :data-from="hitokoto.from")
-      SIcon(name='quote').quote-right
-  //- nav.nav
-    ul.nav-menu
-      li.nav-item(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
-        SIcon(:name='item.icon')
-        .nav-name {{ item.name }}
-        .nav-underline
-  nav.nav
-    ul.nav-blocks
-      li.nav-block(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
-        SIcon(:name='item.icon')
-        //- .nav-name {{ item.name }}
-        //- .nav-underline
-  ul.nav-links
-    li.nav-link-item(v-for='item in navigation.links', :key='item.name')
-      .item__bg
-      a(:href='item.to', target='_blank')
-        SIcon(:name='item.icon')
-  //- .decorate-ferris-wheel
-  //-   .decorate-item
-  //-   .decorate-item
-  //-   .decorate-item
-  //- .decorate-side
-  //-   .decorate-item(:data-theme-background="$cfg.sideTheme")
-  //-   .decorate-item(:data-theme-background="$cfg.sideTheme")
-  //- .decorate
-    .decorate-item(v-for='char in navigation.decorateText' :data-content="char") {{ char }}
-  .decorate-border
-    .decorate-main-dotrect
-      .decorate-dotrect
-      .decorate-dotrect
-      .decorate-dotrect
-      .decorate-dotrect
-      
-    //- .decorate-angle
-    //- .decorate-angle
-    //- .decorate-angle
-    //- .decorate-angle
+    //- div.introduction(data-aos="fade-right" data-aos-delay="600")
+      .blockquote
+        SIcon(name='quote').quote-left
+        .quote-content(v-text="hitokoto.content" :data-from="hitokoto.from")
+        SIcon(name='quote').quote-right
+    //- nav.nav
+      ul.nav-menu
+        li.nav-item(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
+          SIcon(:name='item.icon')
+          .nav-name {{ item.name }}
+          .nav-underline
+    nav.nav
+      ul.nav-blocks
+        li.nav-block(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
+          SIcon(:name='item.icon')
+          //- .nav-name {{ item.name }}
+          //- .nav-underline
+    ul.nav-links
+      li.nav-link-item(v-for='item in navigation.links', :key='item.name')
+        .item__bg
+        a(:href='item.to', target='_blank')
+          SIcon(:name='item.icon')
+    .decorate-border
+      .decorate-main-dotrect
+        .decorate-dotrect
+        .decorate-dotrect
+        .decorate-dotrect
+        .decorate-dotrect
 
-  //- .decorate-burst-12
-  //-   .burst-12
-  //-   .burst-12
-  //-   .burst-12
-  //-   .burst-12
-  //-   .burst-12
-  //-   .burst-12
-  
+  .right
+    slot
 </template>
 
 <script>
@@ -69,7 +52,8 @@ export default {
     hitokoto: {
       content: '',
       from: '',
-    }
+    },
+    showMenu: false
   }),
   computed: {
     ...mapState(useMainStore, ['navigation', 'isMobile']),
@@ -100,4 +84,59 @@ export default {
 
 <style lang="scss" scoped>
 @import './index.scss';
+
+.s-aside {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  .left {
+    flex: 0 0 30%;
+    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  .right {
+    overflow: scroll;
+    height: 100%;
+  }
+  .menu-btn {
+    display: none;
+  }
+}
+@media screen and (max-width: 1120px) {
+  .s-aside {
+    .left {
+      max-width: 0;
+      opacity: 0;
+    }
+    .menu-btn {
+      display: flex;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4rem;
+      height: 4rem;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      z-index: 10;
+    }
+    &.show-menu .left {
+      opacity: 1;
+      max-width: 100%;
+      width: 100%;
+      display: flex;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9;
+    }
+  }
+}
 </style>
