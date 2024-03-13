@@ -1,46 +1,59 @@
 <template lang="pug">
-.s-aside(:class="{'show-menu': showMenu}")
-  .menu-btn(@click="showMenu = !showMenu")
-    SIcon(name='github')
+.s-aside(:class='{ "show-menu": showMenu }')
+  .menu-btn(@click='showMenu = !showMenu')
+    SIcon(name='menu')
   .left
-    .title {{ navigation.title }}
-    //- .title
-      span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
-        .letter(:class="char")
-    //-  {{ navigation.title }}
-    .subtitle {{ navigation.subtitle }}
+    .left-content
+      .title {{ navigation.title }}
+      //- .title
+        span.letter__wrapper(v-for="char in navigation.title.toLowerCase()" )
+          .letter(:class="char")
+      //-  {{ navigation.title }}
+      .subtitle {{ navigation.subtitle }}
 
-    //- div.introduction(data-aos="fade-right" data-aos-delay="600")
-      .blockquote
-        SIcon(name='quote').quote-left
-        .quote-content(v-text="hitokoto.content" :data-from="hitokoto.from")
-        SIcon(name='quote').quote-right
-    //- nav.nav
-      ul.nav-menu
-        li.nav-item(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
-          SIcon(:name='item.icon')
-          .nav-name {{ item.name }}
-          .nav-underline
-    nav.nav
-      ul.nav-blocks
-        li.nav-block(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
-          SIcon(:name='item.icon')
-          //- .nav-name {{ item.name }}
-          //- .nav-underline
-    ul.nav-links
-      li.nav-link-item(v-for='item in navigation.links', :key='item.name')
-        .item__bg
-        a(:href='item.to', target='_blank')
-          SIcon(:name='item.icon')
-    .decorate-border
+      .introduction
+        .blockquote
+          SIcon.quote-left(name='quote')
+          .quote-content(v-text='hitokoto.content', :data-from='hitokoto.from')
+          SIcon.quote-right(name='quote')
+      //- nav.nav
+        ul.nav-menu
+          li.nav-item(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }' @click="$router.push(item.to)")
+            SIcon(:name='item.icon')
+            .nav-name {{ item.name }}
+            .nav-underline
+
+      nav.nav-external(@click='onNavClick')
+        ul.nav-external-links
+          li.nav-link(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
+            SIcon(:name='item.icon')
+      //- nav.nav
+        ul.nav-blocks
+          li.nav-block(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
+            SIcon(:name='item.icon')
+            //- .nav-name {{ item.name }}
+            //- .nav-underline
+      ul.nav-links
+        li.nav-link-item(v-for='item in navigation.links', :key='item.name')
+          .item__bg
+          a(:href='item.to', target='_blank')
+            SIcon(:name='item.icon')
+      .decorate-border
+        .decorate-main-dotrect
+          .decorate-dotrect
+          .decorate-dotrect
+          .decorate-dotrect
+          .decorate-dotrect
+
+  .right
+    .right-scroll-content
+      slot
+    //- .decorate-border
       .decorate-main-dotrect
         .decorate-dotrect
         .decorate-dotrect
         .decorate-dotrect
         .decorate-dotrect
-
-  .right
-    slot
 </template>
 
 <script>
@@ -53,12 +66,23 @@ export default {
       content: '',
       from: '',
     },
-    showMenu: false
+    showMenu: false,
   }),
   computed: {
     ...mapState(useMainStore, ['navigation', 'isMobile']),
   },
-  methods: {},
+  watch: {
+    $route: {
+      handle(nv, ov) {
+        console.log(nv)
+      },
+    },
+  },
+  methods: {
+    onNavClick() {
+      this.showMenu = !this.showMenu
+    },
+  },
   async mounted() {
     try {
       this.hitokoto.content = this.navigation.introduction
@@ -87,55 +111,72 @@ export default {
 
 .s-aside {
   position: relative;
-  flex: 1;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
   height: 100vh;
   .left {
     flex: 0 0 30%;
-    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    .left-content {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 30vw;
+      transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      z-index: 9;
+    }
   }
   .right {
-    overflow: scroll;
-    height: 100%;
+    flex: 1;
+    position: relative;
+    height: 100vh;
+    .right-scroll-content {
+      overflow: scroll;
+      height: 100%;
+    }
   }
   .menu-btn {
     display: none;
+    font-size: 2rem;
   }
 }
 @media screen and (max-width: 1120px) {
   .s-aside {
     .left {
-      max-width: 0;
-      opacity: 0;
+      flex: 0;
+      .left-content {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
     }
     .menu-btn {
       display: flex;
       position: absolute;
       left: 0;
       top: 0;
-      width: 4rem;
-      height: 4rem;
+      width: 3rem;
+      height: 3rem;
       justify-content: center;
       align-items: center;
       background-color: #fff;
+      border-radius: 0.5rem;
       z-index: 10;
+      transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+      cursor: pointer;
+      user-select: none;
+      &:hover {
+        background-color: hsla(330, 30%, 60%, 1);
+      }
     }
-    &.show-menu .left {
+    &.show-menu .left-content {
+      transform: translateX(0%);
+      width: 100vw;
       opacity: 1;
-      max-width: 100%;
-      width: 100%;
-      display: flex;
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9;
     }
   }
 }
