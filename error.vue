@@ -77,7 +77,7 @@ export default {
 .e404,
 .e5xx,
 .error {
-  font-style: italic;
+  font-style: bold;
 }
 
 .back {
