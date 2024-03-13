@@ -72,7 +72,6 @@ export const useMainStore = defineStore('main', {
         const app = useNuxtApp()
         this.archive.currentItem = archive || formatPost(await app.$api.getArchiveById(id))
       }
-      console.log(this.archive.currentItem);
       return this.archive.currentItem
     },
     /**

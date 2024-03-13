@@ -1,6 +1,6 @@
 <template lang="pug">
 .markdown-preview
-  .markdown-title(v-if="title") {{ title }}
+  .markdown-title(v-if='title') {{ title }}
   .markdown-content(v-html='markdown')
   transition(name='zoom')
     .markdown-image-preview-modal(v-if='previewEl', @click='cancelPreview')
@@ -20,8 +20,8 @@ export default {
     },
     offset: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data: () => ({
     _timer: null,
@@ -81,10 +81,6 @@ export default {
         this.previewEl.style.zIndex = 16
       }
     },
-    init() {
-      this.initCopy()
-      this.initPreview()
-    },
     initCopy() {
       document
         .querySelectorAll('.markdown-content .code-options [data-copy]')
@@ -98,10 +94,13 @@ export default {
   },
   created() {},
   mounted() {
-    window.addEventListener('scroll', this.onScroll)
-    this.init()
+    setTimeout(() => {
+      this.initCopy()
+      this.initPreview()
+      window.addEventListener('scroll', this.onScroll)
+    }, 1000)
   },
-  destroyed() {
+  beforeDestroy() {
     window.removeEventListener('scroll', this.onScroll)
   },
 }

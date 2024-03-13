@@ -67,7 +67,6 @@ export default {
   watch: {
     '$route.path'(nv, ov) {
       this.isHomePage = nv == '/'
-      console.log(this.isHomePage)
     },
   },
   methods: {
@@ -114,7 +113,7 @@ export default {
   .left {
     flex: 0 0 30%;
     .left-content {
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
@@ -172,7 +171,7 @@ export default {
     position: relative;
     height: 100vh;
     .right-scroll-content {
-      overflow: scroll;
+      // overflow: auto;
       height: 100%;
     }
   }

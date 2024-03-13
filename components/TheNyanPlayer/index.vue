@@ -178,7 +178,7 @@ export default defineComponent({
         const lrcResp = await this.fetchLyric(this.currentMusic.id)
         const parsedLrc = this.parseLyric(lrcResp)
         this.lyric = parsedLrc
-        console.log(lrcResp, parsedLrc)
+        // console.log(lrcResp, parsedLrc)
       }
     },
     onSlidingStart() {

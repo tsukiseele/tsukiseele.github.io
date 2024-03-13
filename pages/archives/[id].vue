@@ -1,11 +1,12 @@
 <template lang="pug">
 #content
-  .article    
+  .article 
+    |
     .aside.card(v-if='!isMobile && titles && titles.length')
-      STitleNav(:nav='titles', :activeIndex="titlesActiveIndex", @itemClick="onNavItemClick")
+      STitleNav(:nav='titles', :activeIndex='titlesActiveIndex', @itemClick='onNavItemClick')
     .markdown.card
       ClientOnly
-        SMarkdown(:title="current.title" :content='current.markdown', :offset="navHeight" @activeChange='onMarkdownScroll', @imageClick="onImageClick" @loaded="onMarkdownLoaded")
+        SMarkdown(:title='current.title', :content='current.markdown', :offset='navHeight', @activeChange='onMarkdownScroll', @imageClick='onImageClick', @loaded='onMarkdownLoaded')
   ClientOnly
     SComment(:title='this.$route.path')
 </template>
@@ -22,7 +23,7 @@ export default {
     // ...mapState(['archive', 'isMobile']),
     archive() {
       return this.$store.archive
-    }, 
+    },
     isMobile() {
       return this.$store.isMobile
     },
@@ -32,10 +33,10 @@ export default {
     navHeight() {
       if (process.client) {
         const nav = document.querySelector('#nav')
-        if (nav) return nav.clientHeight;
+        if (nav) return nav.clientHeight
       }
-      return 0;
-    }
+      return 0
+    },
   },
   methods: {
     onMarkdownLoaded({ html, titles }) {
@@ -44,21 +45,20 @@ export default {
     onMarkdownScroll({ index, item }) {
       this.titlesActiveIndex = index
     },
-    onImageClick(e) { },
+    onImageClick(e) {},
     onNavItemClick({ target, item }) {
       window.scrollTo({ top: target.offsetTop - this.navHeight, behavior: 'smooth' })
-    }
+    },
   },
-  mounted() {
-  },
+  mounted() {},
   // async fetch({ store, params }) {
   //   await store.dispatch('archive', { ...params })
-  // },  
+  // },
   setup() {
     const app = useNuxtApp()
     const route = useRoute()
     app.$store.getArchive({ ...route.params })
-  }
+  },
 }
 </script>
 

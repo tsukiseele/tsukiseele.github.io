@@ -17,7 +17,6 @@ export default {
     musics: Array,
   },
   mounted() {
-    console.log(this.musics);
   }
 }
 </script>

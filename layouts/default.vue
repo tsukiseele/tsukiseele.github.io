@@ -93,7 +93,6 @@ export default {
             src: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
             // lrc: `https://api.hlo.li/music/lyric?id=${item.id}`
           }))
-          console.log(this.musics)
         }
       } catch (e) {
         console.log(e)
@@ -182,7 +181,7 @@ $mobile: 800px;
 
 // @media screen and (max-width: calc(1080px + 2rem)) {
 @media screen and (max-width: 1120px) {
-  
+
 }
 #hsl {
   #background {
