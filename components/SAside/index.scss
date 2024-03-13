@@ -16,6 +16,7 @@
   --home-link-background-color1: #c7b3d6;
   --home-link-background-color2: #b7d7b6;
   --home-link-background-color3: #81c8c0;
+  
 
 
   .title {
@@ -55,16 +56,15 @@
     font-size: 1rem;
     margin: 1rem 0 2rem 0;
     padding: 0.5rem 0;
-    max-width: 70%;
     color: var(--introduction-color);
     letter-spacing: 1px;
+    width: 90%;
     background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.3) 80%, transparent);
     border-top: 1px dashed rgba($color: $textColor, $alpha: 0.6);
     border-bottom: 1px dashed rgba($color: $textColor, $alpha: 0.6);
-
     .blockquote {
       display: flex;
-      padding: 0 1rem;
+      padding: 0;
 
       i {
         font-size: 1.5rem;
@@ -439,7 +439,7 @@
   top: 0;
   right: 0;
   left: 0;
-  height: 90%;
+  height: 100%;
   animation: fade 0.8s 1s ease-out;
   animation-fill-mode: forwards;
   transform: translateY(-100%) translateZ(0);

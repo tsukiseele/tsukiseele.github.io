@@ -28,7 +28,7 @@
             li.nav-link(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
               SIcon(:name='item.icon')
       .content-expand
-        p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        //- p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
       .decorate-border
         .decorate-main-dotrect
@@ -73,11 +73,11 @@ export default {
   computed: {
     ...mapState(useMainStore, ['navigation', 'isMobile']),
   },
-  watch: {
-    '$route.path'(nv, ov) {
-      this.isHomePage = nv == '/'
-    },
-  },
+  // watch: {
+  //   '$route.path'(nv, ov) {
+  //     this.isHomePage = nv == '/'
+  //   },
+  // },
   methods: {
     onNavClick() {
       this.showMenu = !this.showMenu
