@@ -36,7 +36,16 @@
           .decorate-dotrect
           .decorate-dotrect
           .decorate-dotrect
-
+      //- .decorate-ferris-wheel
+        .decorate-item
+        .decorate-item
+        .decorate-item
+      //- .decorate-side
+      //-   .decorate-item(:data-theme-background="$cfg.sideTheme")
+      //-   .decorate-item(:data-theme-background="$cfg.sideTheme")
+      .decorate
+        .decorate-item(v-for='char in navigation.decorateText' :data-content="char") {{ char }}
+      .triangle
   .right
     .right-scroll-content
       slot
@@ -100,6 +109,17 @@ export default {
 <style lang="scss" scoped>
 @import './index.scss';
 
+// .triangle {
+//   --angle: 250deg;
+//   --color: #b97fad; //hsla(192, 40%, 20%, 1);
+//   position: absolute;
+//   right: 0;
+//   bottom: 75%;
+//   left: 0;
+//   top: 0;
+//   background-image: linear-gradient(calc(-90deg + var(--angle)), var(--color) calc(50% - 1px), transparent 50%);
+//   z-index: -1;
+// }
 .s-aside {
   position: relative;
   width: 100%;
@@ -191,7 +211,7 @@ export default {
     }
     .menu-btn {
       display: flex;
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       width: 3rem;
