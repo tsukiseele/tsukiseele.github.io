@@ -29,9 +29,12 @@ i {
 
   &.nyan-player-mini {
     width: calc(var(--min-size) + var(--minilize-btn-width));
-
+    background-color: transparent;
     .nyan-player__status {
       transform: scaleX(0);
+    }
+    .nyan-player__mini-switch {
+      opacity: .5;
     }
   }
 
@@ -43,6 +46,7 @@ i {
     }
   }
   &.nyan-player--playlist-hidden {
+    // background-color: transparent;
     .nyan-player__playlist {
       transform: scaleY(0);
     }
