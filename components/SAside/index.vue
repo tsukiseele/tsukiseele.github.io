@@ -7,7 +7,8 @@
       .content-main
         .title {{ navigation.title }}
         .subtitle {{ navigation.subtitle }}
-        .introduction
+        .hitokoto(v-text='hitokoto.content', :data-from='hitokoto.from')
+        //- .introduction
           .blockquote
             SIcon.quote-left(name='quote')
             .quote-content(v-text='hitokoto.content', :data-from='hitokoto.from')
@@ -27,11 +28,10 @@
           ul.nav-external-links
             li.nav-link(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
               SIcon(:name='item.icon')
-      .content-expand
-        //- p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
+        .progress(:style='{ "--progress": scrollRatio }')
       .decorate-border
-        .decorate-main-dotrect
+        //- .decorate-main-dotrect
           .decorate-dotrect
           .decorate-dotrect
           .decorate-dotrect
@@ -41,20 +41,14 @@
         .decorate-item
         .decorate-item
       //- .decorate-side
-      //-   .decorate-item(:data-theme-background="$cfg.sideTheme")
-      //-   .decorate-item(:data-theme-background="$cfg.sideTheme")
-      .decorate
-        .decorate-item(v-for='char in navigation.decorateText' :data-content="char") {{ char }}
+        .decorate-item(:data-theme-background="$cfg.sideTheme")
+        .decorate-item(:data-theme-background="$cfg.sideTheme")
+      //- .decorate
+        .decorate-item(v-for='char in navigation.decorateText', :data-content='char') {{ char }}
       .triangle
   .right
     .right-scroll-content
       slot
-    //- .decorate-border
-      .decorate-main-dotrect
-        .decorate-dotrect
-        .decorate-dotrect
-        .decorate-dotrect
-        .decorate-dotrect
 </template>
 
 <script>
@@ -69,6 +63,8 @@ export default {
     },
     showMenu: false,
     isHomePage: false,
+    windowTop: 0,
+    scrollRatio: 0,
   }),
   computed: {
     ...mapState(useMainStore, ['navigation', 'isMobile']),
@@ -82,16 +78,25 @@ export default {
     onNavClick() {
       this.showMenu = !this.showMenu
     },
+    onScroll(e) {
+      this.windowTop = window.top.scrollY /* or: e.target.documentElement.scrollTop */
+      this.scrollRatio = this.windowTop / (document.body.clientHeight - window.innerHeight)
+    },
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.onScroll)
   },
   async mounted() {
     try {
+      window.addEventListener('scroll', this.onScroll)
       this.hitokoto.content = this.navigation.introduction
       this.hitokoto.from = this.navigation.introductionFrom
       if (this.$cfg.hitokotoAPI) {
         const response = await (await fetch(this.$cfg.hitokotoAPI)).json()
         if (response && response.hitokoto && response.from) {
           this.hitokoto.content = response.hitokoto
-          this.hitokoto.from = 'ᅳᅳ' + response.from
+          // this.hitokoto.from = 'ᅳᅳ' + response.from
+          this.hitokoto.from = response.from
         }
       }
     } catch (error) {
@@ -108,7 +113,27 @@ export default {
 
 <style lang="scss" scoped>
 @import './index.scss';
-
+.progress {
+  margin: 2rem 0;
+  position: relative;
+  width: 50%;
+  height: 2rem;
+  border-radius: 1rem;
+  // background-color: white;
+  border: 0.25rem solid white;
+  &::before {
+    border-radius: 1rem;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - 100% * var(--progress));
+    margin: 0.25rem;
+    background-color: white;
+    transition: 0.3s ease;
+  }
+}
 // .triangle {
 //   --angle: 250deg;
 //   --color: #b97fad; //hsla(192, 40%, 20%, 1);
@@ -128,31 +153,87 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
-  height: 100vh;
+  --aside-left-width: 65vh;
   .left {
-    flex: 0 0 30%;
+    flex: 0 0 var(--aside-left-width);
     .left-content {
       position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
-      width: 30vw;
+      width: var(--aside-left-width);
       display: flex;
       flex-direction: row;
       height: 100vh;
       padding: 5rem;
-      transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      transition: 0.3s ease;
       z-index: 9;
+      overflow: hidden;
+      --margin: 2rem;
+      --margin-hover: 2.5rem;
+      
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 4rem;
+        height: 4rem;
+        opacity: 0;
+        transition: 0.25s ease;
+      }
+      &::before {
+        left: var(--margin);
+        top: var(--margin);
+        border-top: 0.25rem dashed wheat;
+        border-left: 0.25rem dashed wheat;
+      }
+      &::after {
+        right: var(--margin);
+        bottom: var(--margin);
+        border-bottom: 0.25rem dashed wheat;
+        border-right: 0.25rem dashed wheat;
+      }
+      &:hover {
+        &::before,
+        &::after {
+          opacity: 1;
+        }
+        &::before {
+          left: var(--margin-hover);
+          top: var(--margin-hover);
+        }
+        &::after {
+          right: var(--margin-hover);
+          bottom: var(--margin-hover);
+        }
+      }
+      // &::after {
+      //   content: '';
+      //   position: absolute;
+      //   top: 0;
+      //   left: -3rem;
+      //   width: calc(100% + 3rem);
+      //   height: 1.8rem;
+      //   background-image: radial-gradient(circle, #2a2b3d, #2a2b3d calc(2rem - 1px), transparent 2rem);
+      //   background-size: calc(3rem) calc(4rem);
+      //   background-position: bottom center;
+      //   background-repeat: repeat-x;
+      // animation: wave-move 6s linear infinite;
+      // @keyframes wave-move {
+      //   0% {
+      //     transform: translateX(0);
+      //   }
+      //   100% {
+      //     transform: translateX(3rem);
+      //   }
+      // }
+      // }
       .content-main {
         align-self: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         flex: 1;
-      }
-      .content-expand {
-        display: none;
       }
     }
   }
@@ -165,34 +246,14 @@ export default {
         .content-main {
           flex: 0 0 calc(30vw - 10rem);
         }
-        .content-expand {
-          flex: 1;
-          display: flex;
-          position: relative;
-          flex-direction: column;
-          // box-sizing: content-box;
-          &::before {
-            content: '';
-            position: absolute;
-            left: -1rem;
-            top: 10%;
-            bottom: 10%;
-            transform: translateX(-100%);
-
-            border-left: 0.25rem dashed white;
-            // border-right: 0.25rem dashed white;
-          }
-        }
       }
     }
   }
   .right {
     flex: 1;
     position: relative;
-    height: 100vh;
     .right-scroll-content {
       // overflow: auto;
-      height: 100%;
     }
   }
   .menu-btn {

@@ -1,7 +1,7 @@
 <template lang="pug">
 .markdown-preview
   .markdown-title(v-if='title') {{ title }}
-  .markdown-content(v-html='markdown')
+  .markdown-content(v-html='markdown' ref='contentRef')
   transition(name='zoom')
     .markdown-image-preview-modal(v-if='previewEl', @click='cancelPreview')
   //- img.markdown-image-preview(v-if='preview', :src='preview', ref='preview')
@@ -93,12 +93,15 @@ export default {
     },
   },
   created() {},
+  finish() {
+
+  },
   mounted() {
     setTimeout(() => {
       this.initCopy()
       this.initPreview()
       window.addEventListener('scroll', this.onScroll)
-    }, 1000)
+    }, 500)
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.onScroll)

@@ -61,21 +61,21 @@ export default {
   },
   // 导航
   nav: {
-    // title: '遠い理想郷',
-    title: '',
-    // subtitle: "TsukiSeele's Blog",
-    subtitle: '',
+    title: '遠い理想郷',
+    // title: '',
+    subtitle: "TsukiSeele's Blog",
+    // subtitle: '',
     avatar: 'https://avatars.githubusercontent.com/u/28500231?v=4',
     owner: 'TsukiSeele',
     introduction: 'しおちゃんがいる場所が、私のハッピーシュガーライフ',
-    introductionFrom: 'ᅳᅳ松坂さとう',
+    introductionFrom: '松坂さとう',
     decorateText: '遠い理想郷',//'SWEET', //遠い理想郷
     drawer: false,
     drawerBannerBackground: 'https://cdn.jsdelivr.net/gh/tsukiseele/ImageHosting/upload/826f66f94e3ebf1f62cff7c9109bb118.jpeg',
     nav: [
       { name: 'Blog', icon: 'blog', to: '/post/1' },
       { name: 'Project', icon: 'project', to: '/projects' },
-      { name: 'Experience', icon: 'experience', to: '/experience' },
+      // { name: 'Experience', icon: 'experience', to: '/experience' },
       { name: 'About', icon: 'about', to: '/about' },
       // { name: 'Friends', icon: 'about', to: '/friends' },
       // { name: 'Timeline', icon: 'about', to: '/timeline' },

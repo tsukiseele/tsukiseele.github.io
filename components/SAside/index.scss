@@ -16,7 +16,7 @@
   --home-link-background-color1: #c7b3d6;
   --home-link-background-color2: #b7d7b6;
   --home-link-background-color3: #81c8c0;
-  
+
 
 
   .title {
@@ -26,7 +26,8 @@
     text-transform: uppercase;
     text-shadow: 0 0 4px rgba($color: var(--title-color), $alpha: 0.5);
     // color: var(--title-color);
-    color: hsla(330, 40%, 40%, 1);
+    color: wheat;
+    // color: hsla(330, 40%, 40%, 1);
     margin-top: 2rem;
     line-height: 2.4rem;
     white-space: nowrap;
@@ -40,12 +41,38 @@
   .subtitle {
     // font-family: var(--font-coquettec);
     font-family: var(--font-sans-serif);
+    color: white;
+    // color: var(--subtitle-color);
     font-weight: normal;
     font-size: 1rem;
     font-style: oblique;
-    color: var(--subtitle-color);
     margin-top: 0.5rem;
     letter-spacing: 1px;
+  }
+
+  .hitokoto {
+    position: absolute;
+    left: 0;
+    top: 4rem;
+    writing-mode: vertical-lr;
+    letter-spacing: .25rem;
+    font-size: 1.25rem;
+    font-family: '仿宋', serif;
+    font-weight: 300;
+    color: white; //hsla(330, 80%, 60%, 1);
+    // background-color: hsla(330, 0%, 100%, .75);
+    // box-shadow: 0 0 8px hsla(330, 0%, 100%, .5);
+    border-radius: 0.5rem;
+    line-height: 2rem;
+    &::before {
+      content: '@' attr(data-from);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      transform: translateX(100%);
+      writing-mode: vertical-lr;
+    }
+    
   }
 
   .introduction {
@@ -62,6 +89,7 @@
     background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.3) 80%, transparent);
     border-top: 1px dashed rgba($color: $textColor, $alpha: 0.6);
     border-bottom: 1px dashed rgba($color: $textColor, $alpha: 0.6);
+
     .blockquote {
       display: flex;
       padding: 0;
@@ -740,6 +768,7 @@
 
   .nav-external-links {
     width: 3rem;
+
     .nav-link {
       position: relative;
       background-color: var(--color);
@@ -767,18 +796,23 @@
         border-right-width: 0;
         border-color: var(--color) transparent var(--color) transparent;
       }
+
       &:nth-of-type(1) {
         --color: #E5B8BD;
       }
+
       &:nth-of-type(2) {
         --color: #C2617E;
       }
+
       &:nth-of-type(3) {
         --color: #4A3F55;
       }
+
       &:nth-of-type(4) {
         --color: #817487;
       }
+
       &:nth-of-type(5) {
         --color: #A8CBC6;
       }
@@ -807,7 +841,7 @@
     right: var(--h-margin);
     bottom: var(--v-margin);
     border-radius: 1rem;
-    background-color: hsla(330, 40%, 80%, 1);
+    // background-color: hsla(330, 40%, 80%, 1);
   }
 
   .decorate-main-dotrect {
