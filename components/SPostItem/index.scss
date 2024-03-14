@@ -9,7 +9,8 @@
   }
 
   .post-item-inner {
-    position: relative;  
+    position: relative;
+
     .bowtie {
       position: absolute;
       left: 50%;
@@ -19,6 +20,7 @@
       height: 2rem;
       color: hsla(330, 50%, 80%, 1);
     }
+
     // overflow: hidden;
     &::before {
       content: '';
@@ -32,23 +34,25 @@
       background-color: hsla(0, 100%, 100%, 0.5);
       transition: .25s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
+
     &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        // transform-origin: 0 100% ;
-        // transform: rotate(-90deg);
-        // background-color: hsla(0, 100%, 100%, 0.5);
-        // transition: .25s ease;
-        // background-repeat: no-repeat;
-        // background-size: 50% 50%;
-        // background-position: 0 0;
-        z-index: -1;
-        // background-image: linear-gradient(#399953, #399953);
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      // transform-origin: 0 100% ;
+      // transform: rotate(-90deg);
+      // background-color: hsla(0, 100%, 100%, 0.5);
+      // transition: .25s ease;
+      // background-repeat: no-repeat;
+      // background-size: 50% 50%;
+      // background-position: 0 0;
+      z-index: -1;
+      // background-image: linear-gradient(#399953, #399953);
     }
+
     // background-color: #fff;
     display: flex;
     flex-direction: row;
@@ -56,19 +60,23 @@
     cursor: pointer;
     border-radius: .5rem;
     padding: .5rem;
-    // border: .2rem dashed hsla(330, 50%, 80%, 1);
     border: .2rem solid hsla(330, 50%, 80%, 1);
+    // border: .2rem solid wheat;
     // border: .2rem dashed white;
     width: 100%;
     height: 100%;
     // background-color: #FCFCF3;
-    background-color: rgba(248, 229, 237, 1);
+    background-color: rgba(255, 255, 255, .7);
+    backdrop-filter: blur(16px); 
+    // background-color: rgba(248, 229, 237, 1);
+
     &:hover {
       // background-color: rgba(248, 229, 237, 1);
       // backdrop-filter: blur(16px);
 
       // border-radius: 2rem;
       border-style: solid;
+
       // background-color: hsla(0, 100%, 100%, 0.5);
       // &::before {
       //   top: 0;
@@ -83,16 +91,18 @@
         // }
         // border-bottom: .25rem solid hsla(330, 50%, 80%, 1);
       }
+
       .item-cover-box {
         border-radius: 1rem;
         transform: scale(1.05) rotate(5deg);
+
         .item-cover {
           transform: scale(1.1);
         }
       }
     }
 
-}
+  }
 
   .item-cover-box {
     flex: 0 0 250px;
@@ -218,6 +228,8 @@
 
   /** Mobile兼容 */
   @include screen-mobile {
+    .post-item-inner {
+      
     flex-direction: column;
     padding: 0rem;
 
@@ -233,5 +245,6 @@
     .item-category {
       line-height: 2.2rem;
     }
+  }
   }
 }

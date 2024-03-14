@@ -154,14 +154,17 @@ export default {
   align-items: center;
   justify-content: center;
   --aside-left-width: 65vh;
+  --aside-left-min-width: 3 0rem;
   .left {
     flex: 0 0 var(--aside-left-width);
+    min-width: var(--aside-left-min-width);
     .left-content {
       position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
       width: var(--aside-left-width);
+      min-width: var(--aside-left-min-width);
       display: flex;
       flex-direction: row;
       height: 100vh;
@@ -171,7 +174,7 @@ export default {
       overflow: hidden;
       --margin: 2rem;
       --margin-hover: 2.5rem;
-      
+
       &::before,
       &::after {
         content: '';
