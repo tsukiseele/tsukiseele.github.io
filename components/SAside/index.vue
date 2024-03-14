@@ -29,7 +29,7 @@
             li.nav-link(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
               SIcon(:name='item.icon')
 
-        .progress(v-if="!showMenu" :style='{ "--progress": scrollRatio }')
+        .progress(v-if='!showMenu', :style='{ "--progress": scrollRatio }')
       .decorate-border
         //- .decorate-main-dotrect
           .decorate-dotrect
@@ -69,11 +69,14 @@ export default {
   computed: {
     ...mapState(useMainStore, ['navigation', 'isMobile']),
   },
-  // watch: {
-  //   '$route.path'(nv, ov) {
-  //     this.isHomePage = nv == '/'
-  //   },
-  // },
+  watch: {
+    // '$route.path'(nv, ov) {
+    //   this.isHomePage = nv == '/'
+    // },
+    showMenu(nv, ov) {
+      document.body.className = nv ? 'hide-scrollbar' : ''
+    },
+  },
   methods: {
     onNavClick() {
       this.showMenu = !this.showMenu
@@ -298,6 +301,7 @@ export default {
         width: 100vw;
         opacity: 1;
       }
+
       // .right {
       //   max-height: 100vh;
       //   overflow: hidden;

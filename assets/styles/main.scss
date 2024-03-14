@@ -47,6 +47,9 @@
 *::-webkit-scrollbar-track {
   background: transparent;
 }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 // 图片状态样式
 img[lazy='error'] {
