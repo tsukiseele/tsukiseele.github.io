@@ -29,7 +29,7 @@
             li.nav-link(v-for='item in navigation.nav', :key='item.name', :class='{ active: item.to == $route.path }', @click='$router.push(item.to)')
               SIcon(:name='item.icon')
 
-        .progress(:style='{ "--progress": scrollRatio }')
+        .progress(v-if="!showMenu" :style='{ "--progress": scrollRatio }')
       .decorate-border
         //- .decorate-main-dotrect
           .decorate-dotrect
@@ -292,10 +292,16 @@ export default {
         background-color: hsla(330, 30%, 60%, 1);
       }
     }
-    &.show-menu .left-content {
-      transform: translateX(0%);
-      width: 100vw;
-      opacity: 1;
+    &.show-menu {
+      .left-content {
+        transform: translateX(0%);
+        width: 100vw;
+        opacity: 1;
+      }
+      // .right {
+      //   max-height: 100vh;
+      //   overflow: hidden;
+      // }
     }
   }
 }
