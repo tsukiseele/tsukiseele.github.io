@@ -12,6 +12,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia'
+import { useMainStore } from '@/stores/index'
+
 export default {
   data: () => ({
     header: {
@@ -22,7 +25,10 @@ export default {
     error: null,
   }),
   computed: {
-    ...mapState(this.$store, ['timeline']),
+    // ...mapState(useMainStore, ['timeline']),
+    timeline() {
+      return this.$store.timeline
+    }
   },
   setup() {
     const app = useNuxtApp()

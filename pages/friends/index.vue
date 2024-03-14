@@ -12,16 +12,20 @@ import { mapState } from 'pinia'
 
 export default {
   computed: {
-    ...mapState(['friends']),
-  },
-  async fetch({ store, params }) {
-    await store.dispatch('friends')
+    friends() {
+      return this.$store.friends
+    }
   },
   methods: {
     onLinkClick(friend) {
       window.open(friend.link, '_blank')
     },
   },
+  setup() {
+    
+    const app = useNuxtApp()
+    app.$store.getFriends()
+  }
 }
 </script>
 

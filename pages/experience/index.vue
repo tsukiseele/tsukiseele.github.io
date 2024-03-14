@@ -18,19 +18,28 @@
 
 <script>
 import { mapState } from 'pinia'
+import { useMainStore } from '@/stores/index'
 export default {
   data: () => ({}),
   computed: {
-    ...mapState(['experience']),
+    experience() {
+      return this.$store.experience
+    },
+    // ...mapState(['experience']),
   },
   methods: {
     onItemClick(item) {
       item && item.link && window.open(item.link, '_blank')
     },
   },
-  async fetch({ store, params }) {
-    await store.dispatch('experience')
-  },
+  setup() {
+    const app = useNuxtApp()
+    const route = useRoute()
+    app.$store.getExperience()
+  }
+  // async fetch({ store, params }) {
+  //   await store.dispatch('getExperience')
+  // },
 }
 </script>
 <style lang="scss" scoped>

@@ -73,11 +73,12 @@ export default {
     drawer: false,
     drawerBannerBackground: 'https://cdn.jsdelivr.net/gh/tsukiseele/ImageHosting/upload/826f66f94e3ebf1f62cff7c9109bb118.jpeg',
     nav: [
-      { name: 'Home', icon: 'home', to: '/' },
-      { name: 'Project', icon: 'project', to: '/projects' },
       { name: 'Blog', icon: 'blog', to: '/post/1' },
+      { name: 'Project', icon: 'project', to: '/projects' },
       { name: 'Experience', icon: 'experience', to: '/experience' },
       { name: 'About', icon: 'about', to: '/about' },
+      // { name: 'Friends', icon: 'about', to: '/friends' },
+      // { name: 'Timeline', icon: 'about', to: '/timeline' },
     ],
     links: [
       { icon: 'github', to: 'https://github.com/tsukiseele' },
