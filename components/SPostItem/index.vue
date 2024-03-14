@@ -7,9 +7,9 @@
     .item-info 
       .item-title {{ title }}
       span.item-preview {{ description }}
-      //- ul.item-labels
+      ul.item-labels
         li.item-label
-          SChip(:text="$util.formatTimeAgo(date)", icon="event_note")
+          SChip(:text="$util.formatDate(date, 'yyyy-MM-dd')", icon="event_note")
         li.item-label(v-for="(label, i) in labels", :key="i")
           SChip(:text="label.name", icon="sell")
     //- .item-category 

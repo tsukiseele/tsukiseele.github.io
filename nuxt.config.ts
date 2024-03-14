@@ -40,6 +40,7 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           type: 'text/css',
           // href: '//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css',
+          // See: https://fonts.google.com/icons
           href: '//fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0',
         },
       ],

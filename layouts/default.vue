@@ -1,9 +1,6 @@
 <template lang="pug">
 #hsl
   #background(:data-theme-background='$cfg.backgroundTheme')
-    .decorate
-      .decorate-item
-      .decorate-item
   #app(:class='{ full: isFull }')
     //- TheNav(
     //-   :title='navigation.title',
@@ -22,7 +19,7 @@
     //- 页脚
     //- TheFooter#footer
     //- 播放器
-    ClientOnly
+    //- ClientOnly
       TheNyanPlayer(v-if='musics && musics.length', :musics='musics', :fetch-lyric='$cfg.musicLyricRequestMethod')
     //- 返回顶部
     //- TheBackTop
@@ -130,14 +127,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$mobile: 800px;
-
-@media screen and (max-width: $mobile) {
-  #app {
-    overflow-x: hidden;
+#hsl {
+  #background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
   }
 }
-
 #app {
   position: relative;
   display: flex;
@@ -149,24 +148,7 @@ $mobile: 800px;
 
 #main {
   flex: 1;
-  // display: flex;
-  // flex-direction: row;
-  // align-items: center;
-  // justify-items: flex-start;
   align-self: stretch;
-  // margin-top: var(--nav-height);
-  // width: 1120px;
-  // width: calc(100% - 480px);
-  // .s-aside {
-  //   flex: 0 0 33%;
-  // }
-  // #content {
-  //   overflow: auto;
-  //   max-height: 100vh;
-  //   width: 100%;
-  //   flex: 1;
-  //   padding: 5rem;
-  // }
 }
 
 .full {
@@ -179,60 +161,14 @@ $mobile: 800px;
   }
 }
 
+@media screen and (max-width: $mobile) {
+  #app {
+    overflow-x: hidden;
+  }
+}
+
 // @media screen and (max-width: calc(1080px + 2rem)) {
 @media screen and (max-width: 1120px) {
 
-}
-#hsl {
-  #background {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    background-repeat: repeat;
-    background-attachment: fixed;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-color: white;
-      opacity: 0.1;
-    }
-
-    .decorate {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-
-      .decorate-item {
-        position: absolute;
-        top: 0;
-        // width: 2px;
-        height: 100%;
-
-        &:first-of-type {
-          left: 10%;
-          background-image: repeating-linear-gradient(0deg, #c7b3d6, #c7b3d6 2px, white 4px, white 8px);
-        }
-
-        &:last-of-type {
-          right: 10%;
-          background-image: repeating-linear-gradient(0deg, #c7b3d6, #c7b3d6 2px, white 4px, white 8px);
-        }
-
-        height: 100%;
-        overflow: hidden;
-      }
-    }
-  }
 }
 </style>

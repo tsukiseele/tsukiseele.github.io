@@ -76,9 +76,9 @@ export default {
       { name: 'Blog', icon: 'blog', to: '/post/1' },
       { name: 'Project', icon: 'project', to: '/projects' },
       // { name: 'Experience', icon: 'experience', to: '/experience' },
+      { name: 'Timeline', icon: 'event_note', to: '/timeline' },
       { name: 'About', icon: 'about', to: '/about' },
       // { name: 'Friends', icon: 'about', to: '/friends' },
-      // { name: 'Timeline', icon: 'about', to: '/timeline' },
     ],
     links: [
       { icon: 'github', to: 'https://github.com/tsukiseele' },

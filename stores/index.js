@@ -90,10 +90,12 @@ export const useMainStore = defineStore('main', {
      * @returns
      */
     async getTimeline() {
-      if (this.timeline.length) return
+      if (this.timeline && this.timeline.length) return
       const app = useNuxtApp()
-      const timeline = formatTimeline(await app.$api.getArchives({ page: 1, count: 99 }))
-      this.timeline = timeline
+      if (!this.archive.totalCount) 
+        await this.getArchives({page: 1, count: 1})
+      const response = await app.$api.getArchives({ page: 1, count: this.archive.totalCount })
+      this.timeline = formatTimeline(response.items)
     },
     /**
      * 获取标签列表
@@ -139,7 +141,7 @@ export const useMainStore = defineStore('main', {
      * 获取友链
      */
     async getFriends() {
-      if (this.friends) return
+      if (this.friends && this.friends.length) return
       const app = useNuxtApp()
       const friends = await app.$api.getPage('friend')
       if (friends && friends[0]) {

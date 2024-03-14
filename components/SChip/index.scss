@@ -10,6 +10,41 @@
   display: inline-block;
   color: var(--color-text);
   font-family: var(--font-monospace);
+  // border: 1px solid transparent;// var(--color-border);
+  border: .1rem solid transparent;// var(--color-border);
+  border-radius: .25rem;
+  // border-radius: math.div($height, 2) !important;
+  height: $height;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+  transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+  color: var(--color);
+  background-color: #dfdfdf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .chip-text {
+    color: #283c5f;
+  }
+  i{
+    font-size: 1rem;
+  }
+  &:hover {
+    border-color: var(--color);
+  }
+}
+/*
+.chip {
+  i {
+    font-size: 1rem;
+    vertical-align: middle;
+    padding-right: 0.25rem;
+  }
+  $height: 1.75rem;
+  display: inline-block;
+  color: var(--color-text);
+  font-family: var(--font-monospace);
   border: 1px solid transparent;// var(--color-border);
   vertical-align: middle;
   // border-radius: math.div($height, 2) !important;
@@ -28,3 +63,4 @@
     border-color: var(--color);
   }
 }
+*/

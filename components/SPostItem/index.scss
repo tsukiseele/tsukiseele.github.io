@@ -67,7 +67,7 @@
     height: 100%;
     // background-color: #FCFCF3;
     background-color: rgba(255, 255, 255, .7);
-    backdrop-filter: blur(16px); 
+    backdrop-filter: blur(16px);
     // background-color: rgba(248, 229, 237, 1);
 
     &:hover {
@@ -167,8 +167,8 @@
     }
 
     .item-labels {
-      margin-top: .5rem;
-      text-align: left;
+      margin: .5rem .5rem 0;
+      text-align: right;
 
       .item-label {
         display: inline-block;
@@ -229,22 +229,22 @@
   /** Mobile兼容 */
   @include screen-mobile {
     .post-item-inner {
-      
-    flex-direction: column;
-    padding: 0rem;
 
-    .item-cover-box {
-      width: 100%;
-      flex: 0 0 220px;
-    }
+      flex-direction: column;
+      padding: 0rem;
 
-    .item-info {
-      padding: 0.5rem 1rem 0.5rem 1rem;
-    }
+      .item-cover-box {
+        width: 100%;
+        flex: 0 0 220px;
+      }
 
-    .item-category {
-      line-height: 2.2rem;
+      .item-info {
+        padding: 0.5rem 1rem 0.5rem 1rem;
+      }
+
+      .item-category {
+        line-height: 2.2rem;
+      }
     }
-  }
   }
 }
