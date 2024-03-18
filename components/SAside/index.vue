@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     onNavClick() {
-      this.showMenu = !this.showMenu
+      this.showMenu = false
     },
     onScroll(e) {
       this.windowTop = window.top.scrollY /* or: e.target.documentElement.scrollTop */
