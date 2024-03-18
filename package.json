@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@giscus/vue": "^3.0.0",
     "@moefe/vue-aplayer": "~2.0.0-beta.5",
     "@pinia/nuxt": "~0.4.11",
     "@vssue/api-github-v3": "~1.4.7",

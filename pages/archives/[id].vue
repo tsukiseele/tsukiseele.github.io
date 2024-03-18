@@ -7,8 +7,8 @@
     .markdown.card
       ClientOnly
         SMarkdown(:title='current.title', :content='current.markdown', :offset='navHeight', @activeChange='onMarkdownScroll', @imageClick='onImageClick', @loaded='onMarkdownLoaded')
-  //- ClientOnly
-    SComment(:title='this.$route.path')
+  ClientOnly
+    SGiscusComment
 </template>
 
 <script>

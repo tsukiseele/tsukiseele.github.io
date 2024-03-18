@@ -4,6 +4,7 @@ i(v-else)
   svg.svg-icon(:src="svg" viewBox="0 0 24 24")
     path(fill="currentColor" :d="svg")
 </template>
+
 <script>
 import svgIcon from '@/assets/svg/icon.js'
 export default {
